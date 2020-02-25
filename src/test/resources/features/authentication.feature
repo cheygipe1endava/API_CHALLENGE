@@ -1,4 +1,4 @@
-Feature: Employees
+Feature: Authentication
   As a user
   I want to create, modify and delete employees
   So that I can manage the existing employees

@@ -55,4 +55,18 @@ public class EmployeesSteps {
         Assert.assertThat(String.format("Error: The employee  last name returned is not %s", employee.getLast_name()),
                 employeeList[0].getLast_name(), Matchers.equalTo(employee.getLast_name()));
     }
+
+    @When("^The user send a request to delete the employee by its id$")
+    public void theUserSendARequestToDeleteTheEmployeeByItsId() {
+        response = employeeControllerInstance.DeleteEmployeeById(employee);
+    }
+
+    @And("^The response deletes the employee$")
+    public void theResponseDeletesTheEmployee() {
+
+        Employee[] employeeList = JsonHelper.responseToEmployeeArray(response);
+        Assert.assertThat(String.format("Error: The employee id returned is not %s", employee.getEmp_no()),
+                employeeList[0].getEmp_no(), Matchers.equalTo(employee.getEmp_no()));
+
+    }
 }

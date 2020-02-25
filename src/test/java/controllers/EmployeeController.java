@@ -41,4 +41,16 @@ public class EmployeeController extends ApiController {
         response = requestSpecification.when().get(idUrl);
         return response;
     }
+
+    public Response DeleteEmployeeById(Employee employee) {
+        URL idUrl = new UrlBuilder()
+                .addDomain(PropertiesHelper.getValueByKey("url.base"))
+                .addPathStep(PropertiesHelper.getValueByKey("url.employee.table"))
+                .addPathStep(String.valueOf(employee.getEmp_no()))
+                .build();
+        response = requestSpecification.when().delete(idUrl);
+        return response;
+    }
+
+
 }
