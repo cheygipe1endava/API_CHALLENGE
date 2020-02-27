@@ -1,0 +1,36 @@
+-------------------------------------------------------------------------------
+Test set: runner.TestRunner
+-------------------------------------------------------------------------------
+Tests run: 10, Failures: 0, Errors: 10, Skipped: 0, Time elapsed: 7.205 sec <<< FAILURE! - in runner.TestRunner
+Create a new request token for session(Authentication)  Time elapsed: 0.285 sec  <<< ERROR!
+cucumber.runtime.CucumberException: 
+Arity mismatch: Step Definition 'steps.NewTokenStep.aNewRequestTokenNeedsToBeCreatedForSession() in file:/C:/Users/fgiraldo/Documents/The%20MovieDB/target/test-classes/' with pattern [^A new request token needs to be created for session$] is declared with 0 parameters. However, the gherkin step has 1 arguments [Table:[[api_key], [3fb4c73306abfe5787339b5dba7276ba]]]. 
+Step text: A new request token needs to be created for session
+
+Create a new request token for session(Authentication)  Time elapsed: 0.285 sec  <<< ERROR!
+cucumber.runtime.junit.UndefinedThrowable: The step "The user send a request to get a new request token" is undefined
+
+Create a new request token for session(Authentication)  Time elapsed: 0.285 sec  <<< ERROR!
+cucumber.runtime.junit.UndefinedThrowable: The step "The service returns request token" is undefined
+
+Create a new request token for session(Authentication)  Time elapsed: 0.285 sec  <<< ERROR!
+cucumber.runtime.junit.UndefinedThrowable: The step "with a status code "200"" is undefined
+
+Test session with login(Authentication)  Time elapsed: 0.031 sec  <<< ERROR!
+cucumber.runtime.junit.UndefinedThrowable: The step "A new validation for a request token needs to be done" is undefined
+
+Test session with login(Authentication)  Time elapsed: 0.031 sec  <<< ERROR!
+cucumber.runtime.junit.UndefinedThrowable: The step "The user send a request to make a new guest session" is undefined
+
+Test session with login(Authentication)  Time elapsed: 0.031 sec  <<< ERROR!
+cucumber.runtime.junit.UndefinedThrowable: The step "The service returns api_key with a status code "200"" is undefined
+
+Create session(Authentication)  Time elapsed: 0.032 sec  <<< ERROR!
+cucumber.runtime.junit.UndefinedThrowable: The step "Creating a fully valid session ID is needed" is undefined
+
+Create session(Authentication)  Time elapsed: 0.032 sec  <<< ERROR!
+cucumber.runtime.junit.UndefinedThrowable: The step "The user send a request to make a session" is undefined
+
+Create session(Authentication)  Time elapsed: 0.032 sec  <<< ERROR!
+cucumber.runtime.junit.UndefinedThrowable: The step "The service returns a status code "200"" is undefined
+
