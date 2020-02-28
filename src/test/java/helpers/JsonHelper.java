@@ -3,6 +3,7 @@ package helpers;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import entities.SessionRequests;
+import entities.ListRequests;
 import io.restassured.response.Response;
 
 public class JsonHelper {
@@ -15,6 +16,10 @@ public class JsonHelper {
 
     public static SessionRequests responseToRequestsObj(Response response) {
         return gson.fromJson(response.body().asString(), SessionRequests.class);
+    }
+
+    public static ListRequests responseToListObj(Response response) {
+        return gson.fromJson(response.body().asString(), ListRequests.class);
     }
 }
 

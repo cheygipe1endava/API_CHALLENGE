@@ -14,17 +14,24 @@ import java.net.URL;
 
 public class ListController {
 
-    String reqToken, sessionID, guestSession, deleteSession, listBody;
+    String reqToken, sessionID, guestSession, deleteSession, listBody, b;
     private ListRequests requests, sessionRequest;
 
     private RequestSpecification httpRequestInstance = RestAssured.given().contentType(ContentType.JSON);
 
     public ListController(){   }
 
+    public void ListExr()
+    {
+        createList();
+        getListDetails();
+        //addMovie();
+    }
+
     public Response createList()
     {
         AuthenticationController cls = new AuthenticationController();
-        String b = cls.Authenticate().getSession_id();
+        b = cls.Authenticate().getSession_id();
 
         listBody = "{\"name\":\"Mock List\"," +
             "\"description\":\"Mock list for tests in API challenge\"," +
@@ -37,11 +44,44 @@ public class ListController {
                 .build();
 
 
-        Response responser = httpRequestInstance.given().body(listBody).and().post(idUrl);
-        String a = responser.getBody().asString();
-        return responser;
-        //requests = JsonHelper.responseToRequestsObj(responser);
+        Response response = httpRequestInstance.given().body(listBody).and().post(idUrl);
+        String a = response.getBody().asString();
+        return response;
+    }
 
+    public Response getListDetails()
+    {
+        listBody = "{\"media_id\":\"18\"}";
+
+        URL idUrl = new URLBuilder()
+                .addDomain(PropertiesHelper.getValueByKey("url.base"))
+                .addPathStep("list")
+                .addQuery(PropertiesHelper.getValueByKey("url.query") + "&session_id=" + b)
+                .build();
+
+
+        Response response = httpRequestInstance.given().body(listBody).and().post(idUrl);
+        requests = JsonHelper.responseToListObj(response);
+        String c = response.getBody().toString();
+        String a = requests.getList_id();
+        return response;
+    }
+
+    public Response addMovie()
+    {
+
+        listBody = "{\"media_id\":\"18\"}";
+
+        URL idUrl = new URLBuilder()
+                .addDomain(PropertiesHelper.getValueByKey("url.base"))
+                .addPathStep("list")
+                .addQuery(PropertiesHelper.getValueByKey("url.query") + "&session_id=" + b)
+                .build();
+
+
+        Response response = httpRequestInstance.given().body(listBody).and().post(idUrl);
+        String a = response.getBody().asString();
+        return response;
     }
 
 
