@@ -30,7 +30,8 @@ public class ListStep {
     @Given("^A new list needs to be created in TMDB$")
     public void aNewListNeedsToBeCreatedInTMDB() {
         listController = new ListController();
-        listController.ListExr();
+        listController.getSessionID();
+        listController.deleteList();
 
     }
 

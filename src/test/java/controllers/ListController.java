@@ -25,16 +25,12 @@ public class ListController {
 
     public ListController(){   }
 
-    public void ListExr()
+    AuthenticationController cls = new AuthenticationController();
+
+    public void getSessionID()
     {
         AuthenticationController cls = new AuthenticationController();
         sessionID = cls.Authenticate().getSession_id();
-        //createList();
-        //getListDetails();
-        //addMovie();
-        //removeMovie();
-        //clearList();
-        deleteList();
     }
 
     public Response createList()
