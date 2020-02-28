@@ -9,20 +9,17 @@ import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import helpers.PropertiesHelper;
 import builders.URLBuilder;
-import netscape.javascript.JSException;
-import netscape.javascript.JSObject;
-import org.apache.http.util.EntityUtils;
-import org.json.JSONObject;
+
 
 import java.net.URL;
 
 public class ListController {
 
-    String listID= " ", sessionID= " ", statusCode= " ", listBody= " ";
+    private String sessionID, listBody, successString, listID, statusCode;
     private ListRequests requests;
     private URL idUrl;
     private RequestSpecification httpRequestInstance = RestAssured.given().contentType(ContentType.JSON);
-    private Response response;
+    private Response response, movieResponse;
 
     public ListController(){   }
 
@@ -39,7 +36,7 @@ public class ListController {
     {
 
         listBody = "{\"name\":\"Mock List1\"," +
-                "\"description\":\"Just an awesome list dawg. Mock list for API test.\"," +
+                "\"description\":\"Just an awesome list dawg. Mock list for API test. adfwdwwd.\"," +
                 "\"language\":\"en\"}";
 
 
@@ -48,11 +45,6 @@ public class ListController {
                 .addPathStep("list")
                 .addQuery(PropertiesHelper.getValueByKey("url.query") + "&session_id=" + sessionID)
                 .build();
-
-
-        //Response response = httpRequestInstance.given().body(listBody).and().post(idUrl);
-        //requests = JsonHelper.responseToListObj(response);
-
     }
 
     public Response sendCreateListResponse()
@@ -64,22 +56,46 @@ public class ListController {
     public String getSuccess()
     {
         requests = JsonHelper.responseToListObj(response);
-        String o = requests.getSuccess();
-        return o;
+        successString = requests.getSuccess();
+        return successString;
     }
+
+    public void getIDForList()
+    {
+        requests = JsonHelper.responseToListObj(response);
+        listID = requests.getList_id();
+    }
+
+    public String  addMovie()
+    {
+
+        listBody = "{\"media_id\": 12}";
+
+        idUrl = new URLBuilder()
+                .addDomain(PropertiesHelper.getValueByKey("url.base"))
+                .addPathStep("list/" + listID + "/add_item")
+                .addQuery(PropertiesHelper.getValueByKey("url.query") + "&session_id=" + sessionID)
+                .build();
+
+        movieResponse = httpRequestInstance.given().body(listBody).and().post(idUrl);
+        requests = JsonHelper.responseToListObj(movieResponse);
+        String statusCodeString = requests.getStatus_code();
+        return statusCodeString;
+    }
+
 
     public Response getListDetails()
     {
         URL idUrl = new URLBuilder()
                 .addDomain(PropertiesHelper.getValueByKey("url.base"))
-                .addPathStep("list/" + 134219)
+                .addPathStep("list/" + listID)
                 .addQuery(PropertiesHelper.getValueByKey("url.query") + "&language=en-US")
                 .build();
 
 
 
         Response response = httpRequestInstance.get(idUrl);
-        String a = response.getBody().asString();
+        String listDetails = response.getBody().asString();
         return response;
     }
 
@@ -88,33 +104,17 @@ public class ListController {
 
         URL idUrl = new URLBuilder()
                 .addDomain(PropertiesHelper.getValueByKey("url.base"))
-                .addPathStep("list/" + 134219 + "/item_status")
+                .addPathStep("list/" + listID + "/item_status")
                 .addQuery(PropertiesHelper.getValueByKey("url.query") + "&movie_id=" + 18)
                 .build();
 
         Response response = httpRequestInstance.get(idUrl);
-        String a = response.getBody().asString();
+        String items = response.getBody().asString();
         return response;
 
     }
 
-    public Response addMovie()
-    {
 
-        listBody = "{\"media_id\": 12}";
-
-        URL idUrl = new URLBuilder()
-                .addDomain(PropertiesHelper.getValueByKey("url.base"))
-                .addPathStep("list/" + listID + "/add_item")
-                .addQuery(PropertiesHelper.getValueByKey("url.query") + "&session_id=" + sessionID)
-                .build();
-
-
-        Response response = httpRequestInstance.given().body(listBody).and().post(idUrl);
-        requests = JsonHelper.responseToListObj(response);
-        statusCode = requests.getStatus_code();//12
-        return response;
-    }
 
     public Response removeMovie()
     {
@@ -159,8 +159,8 @@ public class ListController {
 
         Response response = httpRequestInstance.delete(idUrl);
         String a = response.getBody().asString();
-        //requests = JsonHelper.responseToListObj(response);
-        //statusCode = requests.getStatus_code();//12
+        requests = JsonHelper.responseToListObj(response);
+        statusCode = requests.getStatus_code();//12
         return  response;
     }
 

@@ -1,7 +1,10 @@
-C:\Users\fgiraldo\Documents\The MovieDB\src\test\java\controllers\EmployeeController.java
-C:\Users\fgiraldo\Documents\The MovieDB\src\test\java\controllers\ApiController.java
-C:\Users\fgiraldo\Documents\The MovieDB\src\test\java\helpers\PropertiesHelper.java
-C:\Users\fgiraldo\Documents\The MovieDB\src\test\java\helpers\JsonHelper.java
-C:\Users\fgiraldo\Documents\The MovieDB\src\test\java\runner\TestRunner.java
-C:\Users\fgiraldo\Documents\The MovieDB\src\test\java\steps\NewTokenStep.java
-C:\Users\fgiraldo\Documents\The MovieDB\src\test\java\builders\URLBuilder.java
+C:\Users\user\Documents\API CHALLENGE\API_CHALLENGE\src\test\java\builders\URLBuilder.java
+C:\Users\user\Documents\API CHALLENGE\API_CHALLENGE\src\test\java\entities\SessionRequests.java
+C:\Users\user\Documents\API CHALLENGE\API_CHALLENGE\src\test\java\helpers\PropertiesHelper.java
+C:\Users\user\Documents\API CHALLENGE\API_CHALLENGE\src\test\java\controllers\ListController.java
+C:\Users\user\Documents\API CHALLENGE\API_CHALLENGE\src\test\java\controllers\ApiController.java
+C:\Users\user\Documents\API CHALLENGE\API_CHALLENGE\src\test\java\helpers\JsonHelper.java
+C:\Users\user\Documents\API CHALLENGE\API_CHALLENGE\src\test\java\steps\ListStep.java
+C:\Users\user\Documents\API CHALLENGE\API_CHALLENGE\src\test\java\controllers\AuthenticationController.java
+C:\Users\user\Documents\API CHALLENGE\API_CHALLENGE\src\test\java\entities\ListRequests.java
+C:\Users\user\Documents\API CHALLENGE\API_CHALLENGE\src\test\java\runner\TestRunner.java

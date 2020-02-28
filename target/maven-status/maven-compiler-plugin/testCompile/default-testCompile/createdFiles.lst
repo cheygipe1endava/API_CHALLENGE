@@ -1,7 +1,10 @@
 controllers\ApiController.class
-controllers\EmployeeController.class
+entities\SessionRequests.class
 helpers\PropertiesHelper.class
-steps\NewTokenStep.class
 builders\URLBuilder.class
+controllers\AuthenticationController.class
+controllers\ListController.class
+steps\ListStep.class
 runner\TestRunner.class
+entities\ListRequests.class
 helpers\JsonHelper.class

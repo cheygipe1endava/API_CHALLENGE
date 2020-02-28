@@ -1,36 +1,70 @@
 -------------------------------------------------------------------------------
 Test set: runner.TestRunner
 -------------------------------------------------------------------------------
-Tests run: 10, Failures: 0, Errors: 10, Skipped: 0, Time elapsed: 7.205 sec <<< FAILURE! - in runner.TestRunner
-Create a new request token for session(Authentication)  Time elapsed: 0.285 sec  <<< ERROR!
-cucumber.runtime.CucumberException: 
-Arity mismatch: Step Definition 'steps.NewTokenStep.aNewRequestTokenNeedsToBeCreatedForSession() in file:/C:/Users/fgiraldo/Documents/The%20MovieDB/target/test-classes/' with pattern [^A new request token needs to be created for session$] is declared with 0 parameters. However, the gherkin step has 1 arguments [Table:[[api_key], [3fb4c73306abfe5787339b5dba7276ba]]]. 
-Step text: A new request token needs to be created for session
+Tests run: 23, Failures: 0, Errors: 22, Skipped: 0, Time elapsed: 19.221 sec <<< FAILURE! - in runner.TestRunner
+The user needs to add a new movie to list(List)  Time elapsed: 1.607 sec  <<< ERROR!
+cucumber.runtime.junit.UndefinedThrowable: The step "A new movie needs to be added to the list in TMDB" is undefined
 
-Create a new request token for session(Authentication)  Time elapsed: 0.285 sec  <<< ERROR!
-cucumber.runtime.junit.UndefinedThrowable: The step "The user send a request to get a new request token" is undefined
+The user needs to add a new movie to list(List)  Time elapsed: 1.607 sec  <<< ERROR!
+cucumber.runtime.junit.UndefinedThrowable: The step "The user send a request to add a movie" is undefined
 
-Create a new request token for session(Authentication)  Time elapsed: 0.285 sec  <<< ERROR!
-cucumber.runtime.junit.UndefinedThrowable: The step "The service returns request token" is undefined
+The user needs to add a new movie to list(List)  Time elapsed: 1.607 sec  <<< ERROR!
+cucumber.runtime.junit.UndefinedThrowable: The step "Response contains status code" is undefined
 
-Create a new request token for session(Authentication)  Time elapsed: 0.285 sec  <<< ERROR!
-cucumber.runtime.junit.UndefinedThrowable: The step "with a status code "200"" is undefined
+The user needs to add a new movie to list(List)  Time elapsed: 1.607 sec  <<< ERROR!
+cucumber.runtime.junit.UndefinedThrowable: The step "Movie was successfully added" is undefined
 
-Test session with login(Authentication)  Time elapsed: 0.031 sec  <<< ERROR!
-cucumber.runtime.junit.UndefinedThrowable: The step "A new validation for a request token needs to be done" is undefined
+The user needs to ask for list details to list(List)  Time elapsed: 1.445 sec  <<< ERROR!
+cucumber.runtime.junit.UndefinedThrowable: The step "Details of the list must be shown" is undefined
 
-Test session with login(Authentication)  Time elapsed: 0.031 sec  <<< ERROR!
-cucumber.runtime.junit.UndefinedThrowable: The step "The user send a request to make a new guest session" is undefined
+The user needs to ask for list details to list(List)  Time elapsed: 1.445 sec  <<< ERROR!
+cucumber.runtime.junit.UndefinedThrowable: The step "The user send a request to get details of the list" is undefined
 
-Test session with login(Authentication)  Time elapsed: 0.031 sec  <<< ERROR!
-cucumber.runtime.junit.UndefinedThrowable: The step "The service returns api_key with a status code "200"" is undefined
+The user needs to ask for list details to list(List)  Time elapsed: 1.445 sec  <<< ERROR!
+cucumber.runtime.junit.UndefinedThrowable: The step "Response contains details of the list" is undefined
 
-Create session(Authentication)  Time elapsed: 0.032 sec  <<< ERROR!
-cucumber.runtime.junit.UndefinedThrowable: The step "Creating a fully valid session ID is needed" is undefined
+The user needs to ask for list details to list(List)  Time elapsed: 1.396 sec  <<< ERROR!
+cucumber.runtime.junit.UndefinedThrowable: The step "Details of the list must be shown" is undefined
 
-Create session(Authentication)  Time elapsed: 0.032 sec  <<< ERROR!
-cucumber.runtime.junit.UndefinedThrowable: The step "The user send a request to make a session" is undefined
+The user needs to ask for list details to list(List)  Time elapsed: 1.396 sec  <<< ERROR!
+cucumber.runtime.junit.UndefinedThrowable: The step "The user send a request to get details of the list" is undefined
 
-Create session(Authentication)  Time elapsed: 0.032 sec  <<< ERROR!
-cucumber.runtime.junit.UndefinedThrowable: The step "The service returns a status code "200"" is undefined
+The user needs to ask for list details to list(List)  Time elapsed: 1.396 sec  <<< ERROR!
+cucumber.runtime.junit.UndefinedThrowable: The step "Response contains JSON object for details of the list" is undefined
+
+The user needs to verify the items in the list(List)  Time elapsed: 1.481 sec  <<< ERROR!
+cucumber.runtime.junit.UndefinedThrowable: The step "Items contained in list must be shown" is undefined
+
+The user needs to verify the items in the list(List)  Time elapsed: 1.481 sec  <<< ERROR!
+cucumber.runtime.junit.UndefinedThrowable: The step "The user send a request to get items contained in list" is undefined
+
+The user needs to verify the items in the list(List)  Time elapsed: 1.481 sec  <<< ERROR!
+cucumber.runtime.junit.UndefinedThrowable: The step "Response contains JSON object for items in the list" is undefined
+
+The user needs to remove movies in the list(List)  Time elapsed: 1.441 sec  <<< ERROR!
+cucumber.runtime.junit.UndefinedThrowable: The step "Movies in the list must be removed" is undefined
+
+The user needs to remove movies in the list(List)  Time elapsed: 1.441 sec  <<< ERROR!
+cucumber.runtime.junit.UndefinedThrowable: The step "The user send a request to remove movies contained in list" is undefined
+
+The user needs to remove movies in the list(List)  Time elapsed: 1.441 sec  <<< ERROR!
+cucumber.runtime.junit.UndefinedThrowable: The step "Response show successful remove of movies" is undefined
+
+The user needs to clear records of the list(List)  Time elapsed: 1.467 sec  <<< ERROR!
+cucumber.runtime.junit.UndefinedThrowable: The step "All records in the list must be cleared" is undefined
+
+The user needs to clear records of the list(List)  Time elapsed: 1.467 sec  <<< ERROR!
+cucumber.runtime.junit.UndefinedThrowable: The step "The user send a request to clear the list" is undefined
+
+The user needs to clear records of the list(List)  Time elapsed: 1.467 sec  <<< ERROR!
+cucumber.runtime.junit.UndefinedThrowable: The step "Response show successful clear of the list" is undefined
+
+The user needs to delete the list(List)  Time elapsed: 1.382 sec  <<< ERROR!
+cucumber.runtime.junit.UndefinedThrowable: The step "List must be erased from TMDb" is undefined
+
+The user needs to delete the list(List)  Time elapsed: 1.382 sec  <<< ERROR!
+cucumber.runtime.junit.UndefinedThrowable: The step "The user send a request to delete the list" is undefined
+
+The user needs to delete the list(List)  Time elapsed: 1.383 sec  <<< ERROR!
+cucumber.runtime.junit.UndefinedThrowable: The step "Response show successful delete of the list" is undefined
 

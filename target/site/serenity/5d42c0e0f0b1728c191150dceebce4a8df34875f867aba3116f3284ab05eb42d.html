@@ -53,15 +53,15 @@
     <script class="code" type="text/javascript">$(document).ready(function () {
         var test_results_plot = $.jqplot('test_results_pie_chart', [
             [
-                ['Passing', 0],
+                ['Passing', 0.142857],
                 
-                ['Pending', 0.666667],
+                ['Pending', 0.857143],
                 
                 ['Ignored/Skipped', 0],
                 
                 ['Failing', 0],
                 
-                ['Errors',  0.333333],
+                ['Errors',  0],
                 ['Compromised',  0]
             ]
         ], {
@@ -92,26 +92,26 @@
                 marginTop: '15px'
             },
             series: [
-                {label: '0 / 3 tests passed' },
-                {label: '2 / 3 tests pending'},
-                {label: '0 / 3 tests not executed'},
-                {label: '0 / 3 tests failed'},
-                {label: '1 / 3 errors'},
-                {label: '0 / 3 compromised tests'}
+                {label: '1 / 7 tests passed' },
+                {label: '6 / 7 tests pending'},
+                {label: '0 / 7 tests not executed'},
+                {label: '0 / 7 tests failed'},
+                {label: '0 / 7 errors'},
+                {label: '0 / 7 compromised tests'}
             ]
         });
 
         var weighted_test_results_plot = $.jqplot('weighted_test_results_pie_chart', [
             [
-                ['Passing', 0],
+                ['Passing', 0.147059],
                 
-                ['Pending', 0.6],
+                ['Pending', 0.852941],
                 
                 ['Ignored', 0],
                 
                 ['Failing', 0],
                 
-                ['Errors', 0.4],
+                ['Errors', 0],
                 ['Compromised', 0],
             ]
         ], {
@@ -143,11 +143,11 @@
                 marginTop: '15px'
             },
             series: [
-                {label: '0 / 3 tests passed (0% of all test steps)' },
-                {label: '2 / 3 tests pending'},
-                {label: '0 / 3 tests not executed'},
-                {label: '0 / 3 tests failed (0% of all test steps)'},
-                {label: '1 / 3 errors (0.4% of all test steps)'}
+                {label: '1 / 7 tests passed (0.147059% of all test steps)' },
+                {label: '6 / 7 tests pending'},
+                {label: '0 / 7 tests not executed'},
+                {label: '0 / 7 tests failed (0% of all test steps)'},
+                {label: '0 / 7 errors (0% of all test steps)'}
             ]
         });
 
@@ -194,8 +194,8 @@
 <div id="contenttop">
     <div class="middlebg">
         <span class="breadcrumbs"><a href="index.html">Home</a>
-                > Feature  (with Feature Authentication)
-                > <span class="truncate-60">Authentication</span>
+                > Feature  (with Feature List)
+                > <span class="truncate-60">List</span>
         </span>
     </div>
     <div class="rightbg"></div>
@@ -216,7 +216,7 @@
             <a href="576946480b52ad056d6f5bddf874399c83582ecf90963cc074a14c70580e7d9f.html"><i class="fa fa-comments-o"></i> Features</a>
         </li>
     </ul>
-    <span class="date-and-time"><a href="build-info.html"><i class="fa fa-info-circle"></i></a> Report generated 26-02-2020 17:18</span>
+    <span class="date-and-time"><a href="build-info.html"><i class="fa fa-info-circle"></i></a> Report generated 28-02-2020 07:43</span>
     <br style="clear:left"/>
 </div>
 <div class="clr"></div>
@@ -225,42 +225,32 @@
 <div class="middlb">
 <div class="table">
 
-<h2><i class='fa fa-tags'></i> Feature: Authentication</h2>
+<h2><i class='fa fa-tags'></i> Feature: List</h2>
 <table class='overview'>
     <tr>
         <td width="375px" valign="top">
             <div class="test-count-summary">
-                <span class="test-count-title">3
+                <span class="test-count-title">7
                     test scenarios </span>
                 <div>
 
                     <span class="test-count"> |
-                        2
-                            <a href="3395d63b720b2996f3637bad700fcfad826f7965d020a2d287702aa8373fa4d1.html">pending</a>
+                        1
+                            <a href="ff1394a5c25bd9912b994cb7a69eb702cf3301d20fdfabeb54c71153b960f0b8.html">passed</a>
                         
                     </span>
                     <span class="test-count"> |
-                        1
-                            <a href="897a0d8dc27d4b2ed21797cde0ea78d5129cb261610669b11bf44c478b3c6fca.html">unsuccessful</a>
+                        6
+                            <a href="67f9bc7cdef2238d1548aaa50a2b1c8d1fd2558dbf84e2842d2e5c1ddc214444.html">pending</a>
                         
-                    </span>(
-                    <span class="test-count">
-                        0
-                            <a href="b24869441871ea759082de93252a83efe5bc73c296f2ec62bdd2ac04d583a63a.html">failed</a>
-                        ,
                     </span>
-                    <span class="test-count">
-                        1
-                            <a href="70d451d835c75fa7ed84d144188592086a00081634dc7a12233062ab7cca1ba5.html">with errors</a>
-                        
-                    </span>)
 
                 
 
 
 
                  |
-                    <a href="eb83db7454602df736576648246470f3abb8b047f4a4f0a46c3879d036d54313.csv" title="Download CSV"> <i class="fa fa-download" title="Download CSV"></i></a>
+                    <a href="5d42c0e0f0b1728c191150dceebce4a8df34875f867aba3116f3284ab05eb42d.csv" title="Download CSV"> <i class="fa fa-download" title="Download CSV"></i></a>
                 </div>
             </div>
 
@@ -304,10 +294,10 @@
         <body>
         <tr>
             <td class="summary-leading-column">Automated</td>
-            <td>3</td>
+            <td>7</td>
+            <td>1 (14%)</td>
             <td>0 (0%)</td>
-            <td>1 (33%)</td>
-            <td>2 (67%)</td>
+            <td>6 (86%)</td>
             <td>0 (0%)</td>
         </tr>
         <tr>
@@ -320,15 +310,15 @@
         </tr>
         <tr>
             <td class="summary-leading-column">Total</td>
-            <td>3</td>
+            <td>7</td>
+            <td>1 (14%)</td>
             <td>0 (0%)</td>
-            <td>1 (33%)</td>
-            <td>2 (67%)</td>
+            <td>6 (86%)</td>
             <td>0 (0%)</td>
         </tr>
         <tr>
             <td class="summary-leading-column">Total Duration</td>
-                <td colspan="5">0 seconds</td>
+                <td colspan="5">15 seconds</td>
         </tr>
         </body>
     </table>
@@ -351,7 +341,7 @@
                     <table>
                         <tr>
                             <td colspan="2">
-                                <span class="caption">Test results weighted by test size in steps (average steps per test: 3) .</span>
+                                <span class="caption">Test results weighted by test size in steps (average steps per test: 5) .</span>
                                 <span class="togglePieChart" id="toggleWeightedPieChart"><a href="#">Show/Hide Pie
                                     Chart</a></span>
                             </td>
@@ -383,10 +373,10 @@
         <body>
         <tr>
             <td class="summary-leading-column">Automated</td>
-            <td>3</td>
+            <td>7</td>
+            <td>1 (14%)</td>
             <td>0 (0%)</td>
-            <td>1 (33%)</td>
-            <td>2 (67%)</td>
+            <td>6 (86%)</td>
             <td>0 (0%)</td>
         </tr>
         <tr>
@@ -399,15 +389,15 @@
         </tr>
         <tr>
             <td class="summary-leading-column">Total</td>
-            <td>3</td>
+            <td>7</td>
+            <td>1 (14%)</td>
             <td>0 (0%)</td>
-            <td>1 (33%)</td>
-            <td>2 (67%)</td>
+            <td>6 (86%)</td>
             <td>0 (0%)</td>
         </tr>
         <tr>
             <td class="summary-leading-column">Total Duration</td>
-                <td colspan="5">0 seconds</td>
+                <td colspan="5">15 seconds</td>
         </tr>
         </body>
     </table>
@@ -451,27 +441,27 @@
                         </thead>
                         <tbody>
 
-                            <tr class="test-ERROR">
-                                <td><span class="summary-icon"><i class='fa fa-exclamation-triangle error-icon ' title='ERROR'></i></span>
+                            <tr class="test-SUCCESS">
+                                <td><span class="summary-icon"><i class='fa fa-check-square-o success-icon ' title='SUCCESS'></i></span>
                                     
-                                    <span style="display:none">ERROR</span></td>
-                                <td class="ERROR-text">
+                                    <span style="display:none">SUCCESS</span></td>
+                                <td class="SUCCESS-text">
                                     <div class="ellipsis">
 
-                                        <a href="21e5941794ee298db2fce984443851819bdd9a5921f71358f1dbf73e0fdee8e7.html" class="ellipsis"
-                                           title="Create a new request token for session Cucumber exception: Arity mismatch: S...">
-                                            Create a new request token for session
+                                        <a href="ff90046164543944b16f461c88c1cedf0916289f4aa6d48cc0816b1d6a5f4181.html" class="ellipsis"
+                                           title="The user needs to create a new list in TMDB ">
+                                            The user needs to create a new list in TMDB
                                                 <span class="related-issue-title"></span>
                                         </a>
                                     </div>
                                 </td>
 
-                                <td class="ERROR-text">4</td>
+                                <td class="SUCCESS-text">5</td>
 
 
-                                <td class="ERROR-text" data-sort="2020-02-26 17:18:12">17:18:12</td>
+                                <td class="SUCCESS-text" data-sort="2020-02-28 07:42:49">07:42:49</td>
 
-                                <td class="ERROR-text">0.35</td>
+                                <td class="SUCCESS-text">5.03</td>
                             </tr>
 
                             <tr class="test-PENDING">
@@ -481,20 +471,20 @@
                                 <td class="PENDING-text">
                                     <div class="ellipsis">
 
-                                        <a href="6da280c13d316742e61d0b51fde4f0ee0e1fd88727aa51748f69f5ff540d37b4.html" class="ellipsis"
-                                           title="Test session with login ">
-                                            Test session with login
+                                        <a href="d7682eb60b89ec258505c75464b50b7e6f18c58454ad150870eda5d3092675ae.html" class="ellipsis"
+                                           title="The user needs to add a new movie to list ">
+                                            The user needs to add a new movie to list
                                                 <span class="related-issue-title"></span>
                                         </a>
                                     </div>
                                 </td>
 
-                                <td class="PENDING-text">3</td>
+                                <td class="PENDING-text">5</td>
 
 
-                                <td class="PENDING-text" data-sort="2020-02-26 17:18:12">17:18:12</td>
+                                <td class="PENDING-text" data-sort="2020-02-28 07:42:54">07:42:54</td>
 
-                                <td class="PENDING-text">0</td>
+                                <td class="PENDING-text">1.63</td>
                             </tr>
 
                             <tr class="test-PENDING">
@@ -504,20 +494,112 @@
                                 <td class="PENDING-text">
                                     <div class="ellipsis">
 
-                                        <a href="d6a6f6c6bbe33d2f4ca083e922848994741832ed9329a749fcdd26b43b2f2346.html" class="ellipsis"
-                                           title="Create session ">
-                                            Create session
+                                        <a href="e260ad33bd66febd8ee2835c3d709ddb2e9d83b5c99589d16e2082c02e33e509.html" class="ellipsis"
+                                           title="The user needs to ask for list details to list ">
+                                            The user needs to ask for list details to list
                                                 <span class="related-issue-title"></span>
                                         </a>
                                     </div>
                                 </td>
 
-                                <td class="PENDING-text">3</td>
+                                <td class="PENDING-text">8</td>
 
 
-                                <td class="PENDING-text" data-sort="2020-02-26 17:18:12">17:18:12</td>
+                                <td class="PENDING-text" data-sort="2020-02-28 07:42:55">07:42:55</td>
 
-                                <td class="PENDING-text">0</td>
+                                <td class="PENDING-text">2.81</td>
+                            </tr>
+
+                            <tr class="test-PENDING">
+                                <td><span class="summary-icon"><i class='fa fa-square-o pending-icon ' title='PENDING'></i></span>
+                                    
+                                    <span style="display:none">PENDING</span></td>
+                                <td class="PENDING-text">
+                                    <div class="ellipsis">
+
+                                        <a href="96cde73445b097adebf936b87cd89743b2503cf352fbaa9f760c1af07593ad40.html" class="ellipsis"
+                                           title="The user needs to verify the items in the list ">
+                                            The user needs to verify the items in the list
+                                                <span class="related-issue-title"></span>
+                                        </a>
+                                    </div>
+                                </td>
+
+                                <td class="PENDING-text">4</td>
+
+
+                                <td class="PENDING-text" data-sort="2020-02-28 07:42:58">07:42:58</td>
+
+                                <td class="PENDING-text">1.48</td>
+                            </tr>
+
+                            <tr class="test-PENDING">
+                                <td><span class="summary-icon"><i class='fa fa-square-o pending-icon ' title='PENDING'></i></span>
+                                    
+                                    <span style="display:none">PENDING</span></td>
+                                <td class="PENDING-text">
+                                    <div class="ellipsis">
+
+                                        <a href="0f2fe186d58a957b62eba10e562bb32cfa698e245de79a421f04282587d36ce3.html" class="ellipsis"
+                                           title="The user needs to remove movies in the list ">
+                                            The user needs to remove movies in the list
+                                                <span class="related-issue-title"></span>
+                                        </a>
+                                    </div>
+                                </td>
+
+                                <td class="PENDING-text">4</td>
+
+
+                                <td class="PENDING-text" data-sort="2020-02-28 07:43:00">07:43:00</td>
+
+                                <td class="PENDING-text">1.46</td>
+                            </tr>
+
+                            <tr class="test-PENDING">
+                                <td><span class="summary-icon"><i class='fa fa-square-o pending-icon ' title='PENDING'></i></span>
+                                    
+                                    <span style="display:none">PENDING</span></td>
+                                <td class="PENDING-text">
+                                    <div class="ellipsis">
+
+                                        <a href="4eee13c7520ea798cce36fad6080feb1ae6eac817463d53f014014417c0abbef.html" class="ellipsis"
+                                           title="The user needs to clear records of the list ">
+                                            The user needs to clear records of the list
+                                                <span class="related-issue-title"></span>
+                                        </a>
+                                    </div>
+                                </td>
+
+                                <td class="PENDING-text">4</td>
+
+
+                                <td class="PENDING-text" data-sort="2020-02-28 07:43:01">07:43:01</td>
+
+                                <td class="PENDING-text">1.51</td>
+                            </tr>
+
+                            <tr class="test-PENDING">
+                                <td><span class="summary-icon"><i class='fa fa-square-o pending-icon ' title='PENDING'></i></span>
+                                    
+                                    <span style="display:none">PENDING</span></td>
+                                <td class="PENDING-text">
+                                    <div class="ellipsis">
+
+                                        <a href="bb412436c3cacd5f4c911b4b97fada6ec63f742e834a6ddb457ea3259d2364c2.html" class="ellipsis"
+                                           title="The user needs to delete the list ">
+                                            The user needs to delete the list
+                                                <span class="related-issue-title"></span>
+                                        </a>
+                                    </div>
+                                </td>
+
+                                <td class="PENDING-text">4</td>
+
+
+                                <td class="PENDING-text" data-sort="2020-02-28 07:43:03">07:43:03</td>
+
+                                <td class="PENDING-text">1.38</td>
                             </tr>
                         </tbody>
                     </table>

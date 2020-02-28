@@ -27,8 +27,8 @@ public class ListStep {
     private ListController listController;
     private SessionRequests Autorization;
     private ListRequests listRequests;
-    private String f, e;
-    private Response response, response2;
+    private String successResult, listID, statusCodeResult;
+    private Response response, responseMovie;
     private RequestSpecification httpRequestInstance = RestAssured.given().contentType(ContentType.JSON);
     private URL idUrl;
     private ListRequests requests;
@@ -48,7 +48,6 @@ public class ListStep {
         listController.ListExr();
         listController.createList();
 
-
     }
 
     @When("^The user send a request to create the list$")
@@ -58,17 +57,15 @@ public class ListStep {
 
     @Then("^The service responds with a success result$")
     public void theServiceRespondsWithASuccessResult() {
-        f = listController.getSuccess();
-        Assert.assertEquals("true", f);
+        successResult = listController.getSuccess();
+        Assert.assertEquals("true", successResult);
     }
 
     @And("^The response contains the new list$")
     public void theResponseContainsTheNewList() {
         requests = JsonHelper.responseToListObj(response);
-        String r = requests.getList_id();
+        listID = requests.getList_id();
 
     }
-
-
 
 }
