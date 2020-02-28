@@ -31,6 +31,8 @@ public class ListStep {
     public void aNewListNeedsToBeCreatedInTMDB() {
         listController = new ListController();
         listController.ListExr();
+        listController.createList();
+        listController.deleteList();
 
     }
 

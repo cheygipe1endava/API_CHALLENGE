@@ -6,18 +6,18 @@ public class ListRequests {
     private String description;
     private String language;
     private String list_id;
-    private String guest_session_id;
+    private String getStatus_code;
     private String delete_session_id;
 
     public ListRequests(){ }
 
     public ListRequests(String name, String description, String language,
-                           String list_id, String guest_session_id, String delete_session_id) {
+                           String list_id, String getStatus_code) {
         this.name = name;
         this.description = description;
         this.language = language;
         this.list_id = list_id;
-        this.guest_session_id = guest_session_id;
+        this.getStatus_code = getStatus_code;
         this.delete_session_id = delete_session_id;
     }
 
@@ -49,9 +49,9 @@ public class ListRequests {
         this.list_id = list_id;
     }
 
-    public String getGuest_session_id() {return guest_session_id;}
+    public String getStatus_code() {return getStatus_code;}
 
-    public void setGuest_session_id(String guest_session_id) {this.guest_session_id = guest_session_id;}
+    public void setStatus_code(String getStatus_code) {this.getStatus_code = getStatus_code;}
 
     public String getDelete_session_id() {return delete_session_id;}
 
