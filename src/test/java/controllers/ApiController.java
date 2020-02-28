@@ -1,7 +1,6 @@
 package controllers;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;

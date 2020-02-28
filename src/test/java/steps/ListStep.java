@@ -1,9 +1,7 @@
 package steps;
 
-import builders.URLBuilder;
 import controllers.AuthenticationController;
 import controllers.ListController;
-import cucumber.api.PendingException;
 import entities.ListRequests;
 import entities.SessionRequests;
 import cucumber.api.java.en.And;
@@ -11,15 +9,12 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import helpers.JsonHelper;
-import helpers.PropertiesHelper;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
-import org.hamcrest.Matchers;
 import org.junit.Assert;
 import java.net.URL;
-import entities.ListRequests;
 
 public class ListStep {
 
