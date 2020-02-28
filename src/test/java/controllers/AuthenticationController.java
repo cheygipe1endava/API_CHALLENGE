@@ -1,7 +1,6 @@
 package controllers;
 
-import cucumber.api.java.sk.Tak;
-import entities.Requests;
+import entities.SessionRequests;
 import helpers.JsonHelper;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -9,27 +8,23 @@ import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import helpers.PropertiesHelper;
 import builders.URLBuilder;
-import org.jruby.RubyProcess;
-import org.json.JSONObject;
-import org.yecht.Data;
+
 
 import java.net.URL;
-
 
 
 public class AuthenticationController {
 
     String reqToken, sessionID, guestSession, deleteSession;
 
-    private Response response;
-    private Requests requests, sessionRequest;
-    private Requests requi;
+    private SessionRequests requests, sessionRequest;
+
     private RequestSpecification httpRequestInstance = RestAssured.given().contentType(ContentType.JSON);
 
     public AuthenticationController() {
     }
 
-    public Requests Authenticate() {
+    public SessionRequests Authenticate() {
         GuestSession();
         TakeAPIResponse();
         SessionWithLogin();
@@ -42,7 +37,7 @@ public class AuthenticationController {
         URL idUrl = new URLBuilder()
                 .addDomain(PropertiesHelper.getValueByKey("url.base"))
                 .addPathStep("authentication/guest_session/new")
-                .addQuery("api_key=3fb4c73306abfe5787339b5dba7276ba")
+                .addQuery(PropertiesHelper.getValueByKey("url.query"))
                 .build();
 
         Response response = httpRequestInstance.get(idUrl);
@@ -57,7 +52,7 @@ public class AuthenticationController {
         URL idUrl = new URLBuilder()
                 .addDomain(PropertiesHelper.getValueByKey("url.base"))
                 .addPathStep("authentication/token/new")
-                .addQuery("api_key=3fb4c73306abfe5787339b5dba7276ba")
+                .addQuery(PropertiesHelper.getValueByKey("url.query"))
                 .build();
 
         Response response = httpRequestInstance.get(idUrl);
@@ -75,7 +70,7 @@ public class AuthenticationController {
         URL idUrl = new URLBuilder()
                 .addDomain(PropertiesHelper.getValueByKey("url.base"))
                 .addPathStep("authentication/token/validate_with_login")
-                .addQuery("api_key=3fb4c73306abfe5787339b5dba7276ba")
+                .addQuery(PropertiesHelper.getValueByKey("url.query"))
                 .build();
 
         Response response = httpRequestInstance.given().body(SessionBody).and().post(idUrl);
@@ -83,14 +78,14 @@ public class AuthenticationController {
         reqToken = requests.getRequest_token();
     }
 
-    public Requests CreateSession()
+    public SessionRequests CreateSession()
     {
         String SessionBody = "{\"request_token\":" + "\"" +  reqToken + "\"" + "}";
 
         URL idUrl = new URLBuilder()
                 .addDomain(PropertiesHelper.getValueByKey("url.base"))
                 .addPathStep("authentication/session/new")
-                .addQuery("api_key=3fb4c73306abfe5787339b5dba7276ba")
+                .addQuery(PropertiesHelper.getValueByKey("url.query"))
                 .build();
 
         Response response = httpRequestInstance.given().body(SessionBody).and().post(idUrl);
@@ -106,13 +101,13 @@ public class AuthenticationController {
         URL idUrl = new URLBuilder()
                 .addDomain(PropertiesHelper.getValueByKey("url.base"))
                 .addPathStep("authentication/session")
-                .addQuery("api_key=3fb4c73306abfe5787339b5dba7276ba")
+                .addQuery(PropertiesHelper.getValueByKey("url.query"))
                 .build();
 
         Response response = httpRequestInstance.given().body(SessionBody).and().delete(idUrl);
         requests = JsonHelper.responseToRequestsObj(response);
-        sessionID = requests.getSuccess();
-        return sessionID;
+        deleteSession = requests.getSuccess();
+        return deleteSession;
     }
 
 

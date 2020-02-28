@@ -1,12 +1,8 @@
 package entities;
 
-import org.yecht.Data;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Random;
 
-public class Requests {
+public class SessionRequests {
 
     private String success;
     private String expires_at;
@@ -15,11 +11,11 @@ public class Requests {
     private String guest_session_id;
     private String delete_session_id;
 
-    public Requests() {
+    public SessionRequests() {
     }
 
-    public Requests(String success, String expires_at, String request_token,
-                    String session_id, String guest_session_id, String delete_session_id) {
+    public SessionRequests(String success, String expires_at, String request_token,
+                           String session_id, String guest_session_id, String delete_session_id) {
         this.success = success;
         this.expires_at = expires_at;
         this.request_token = request_token;

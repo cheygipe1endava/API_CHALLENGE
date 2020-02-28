@@ -1,19 +1,22 @@
 package steps;
 
 import controllers.AuthenticationController;
+import controllers.ListController;
 import cucumber.api.PendingException;
-import entities.Requests;
+import entities.ListRequests;
+import entities.SessionRequests;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import io.restassured.response.Response;
 import org.junit.Assert;
 
 public class ListStep {
 
     private AuthenticationController authControlInstance;
-    private Requests Autorization;
+    private ListController listController;
+    private SessionRequests Autorization;
+    private ListRequests listRequests;
 
     @Given("^The user has a valid session created with its API Key$")
     public void theUserHasAValidSessionCreatedWithItsAPIKey() {
@@ -26,6 +29,9 @@ public class ListStep {
 
     @Given("^A new list needs to be created in TMDB$")
     public void aNewListNeedsToBeCreatedInTMDB() {
+        listController = new ListController();
+        listController.createList();
+
     }
 
     @When("^The user send a request to create the list$")
