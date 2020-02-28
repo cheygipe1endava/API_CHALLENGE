@@ -18,40 +18,54 @@ import java.net.URL;
 
 public class ListController {
 
-    String listID, sessionID, statusCode, deleteSession, listBody;
-    private ListRequests requests, sessionRequest;
-
+    String listID= " ", sessionID= " ", statusCode= " ", listBody= " ";
+    private ListRequests requests;
+    private URL idUrl;
     private RequestSpecification httpRequestInstance = RestAssured.given().contentType(ContentType.JSON);
+    private Response response;
 
     public ListController(){   }
 
-    public void ListExr()
+
+
+    public String ListExr()
     {
         AuthenticationController cls = new AuthenticationController();
         sessionID = cls.Authenticate().getSession_id();
+        return sessionID;
     }
 
-    public Response createList()
+    public void createList()
     {
 
-
         listBody = "{\"name\":\"Mock List1\"," +
-                "\"description\":\"Just an awesome list dawg. Mock list for API test. efwcfqcqe\"," +
+                "\"description\":\"Just an awesome list dawg. Mock list for API test.\"," +
                 "\"language\":\"en\"}";
 
 
-        URL idUrl = new URLBuilder()
+        idUrl = new URLBuilder()
                 .addDomain(PropertiesHelper.getValueByKey("url.base"))
                 .addPathStep("list")
                 .addQuery(PropertiesHelper.getValueByKey("url.query") + "&session_id=" + sessionID)
                 .build();
 
 
-        Response response = httpRequestInstance.given().body(listBody).and().post(idUrl);
-        requests = JsonHelper.responseToListObj(response);
-        String a = response.getBody().asString();
-        listID = requests.getList_id();
+        //Response response = httpRequestInstance.given().body(listBody).and().post(idUrl);
+        //requests = JsonHelper.responseToListObj(response);
+
+    }
+
+    public Response sendCreateListResponse()
+    {
+        response = httpRequestInstance.given().body(listBody).and().post(idUrl);
         return response;
+    }
+
+    public String getSuccess()
+    {
+        requests = JsonHelper.responseToListObj(response);
+        String o = requests.getSuccess();
+        return o;
     }
 
     public Response getListDetails()

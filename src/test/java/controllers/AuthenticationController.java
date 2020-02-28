@@ -15,7 +15,7 @@ import java.net.URL;
 
 public class AuthenticationController {
 
-    String reqToken, sessionID, guestSession, deleteSession;
+    String reqToken = " ", sessionID= " ", guestSession= " ", deleteSession= " ";
 
     private SessionRequests requests, sessionRequest;
 
