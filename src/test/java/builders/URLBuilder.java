@@ -3,7 +3,6 @@ package builders;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-
 public class URLBuilder {
 
     private String baseUrl;
@@ -31,7 +30,7 @@ public class URLBuilder {
 
     public URL build() {
         try {
-            return new URL(baseUrl + "/" + String.join("/", path)+ "?" + "api_key=3fb4c73306abfe5787339b5dba7276ba");
+            return new URL(baseUrl + "/" + String.join("/", path)+ "?" + "api_key=3fb4c73306abfe5787339b5dba7276ba" + String.join("/", query));
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }

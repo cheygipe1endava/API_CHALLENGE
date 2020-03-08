@@ -5,10 +5,11 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.junit.Assert;
+import java.util.List;
 
 public class AuthenticationSteps {
 
-    AuthenticationController authenticationController = new AuthenticationController();
+    private AuthenticationController authenticationController = new AuthenticationController();
 
     @Given("^the user requests a session token$")
     public void theUserRequestsASessionToken()
@@ -27,6 +28,6 @@ public class AuthenticationSteps {
     public void theUserCreatesAValidSession()
     {
         authenticationController.createSessionBody();
-        Assert.assertEquals("User has a valid session key","true", authenticationController.createSession());
+        Assert.assertEquals("User has a valid session key","true",  authenticationController.createSession().getSuccess());
     }
 }

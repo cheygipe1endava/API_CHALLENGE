@@ -7,7 +7,8 @@ import io.restassured.response.Response;
 import helpers.PropertiesHelper;
 import builders.URLBuilder;
 import java.net.URL;
-
+import java.util.ArrayList;
+import java.util.List;
 
 public class AuthenticationController extends ApiController{
 
@@ -21,6 +22,15 @@ public class AuthenticationController extends ApiController{
     private final String NEW = "new?";
     private final String TOKEN = "token";
      */
+
+    public SessionRequests Authenticate() {
+        getRequestToken();
+        sessionWithLoginBody();
+        sessionWithLogin();
+        createSessionBody();
+        createSession();
+        return sessionRequest;
+    }
 
     public AuthenticationController() {
         super();
@@ -46,7 +56,7 @@ public class AuthenticationController extends ApiController{
         return requests.getGuest_session_id();
 
     }
-
+/*
     public URL gettingURL(String endpoint){
         switch (endpoint){
             case "token":
@@ -68,6 +78,7 @@ public class AuthenticationController extends ApiController{
         }
         return null;
     }
+ */
 
     public void sessionWithLoginBody()
     {
@@ -90,23 +101,16 @@ public class AuthenticationController extends ApiController{
     public void sessionWithLogin()
     {
         Response sendRequest = requestSpecification.given().body(sessionWithLoginBody)
-                                .and().post(gettingURL("validate"));
+                                .and().post(gettingURL("validateSession"));
         getRequestBody = JsonHelper.responseToRequestsObj(sendRequest);
     }
 
-    public String createSession()
+    public SessionRequests createSession()
     {
         Response sendRequest = requestSpecification.given().body(sessionWithLoginBody)
-                                .and().post(gettingURL("session"));
+                                .and().post(gettingURL("sessionCreation"));
         sessionRequest = JsonHelper.responseToRequestsObj(sendRequest);
-        //sessionID = sessionRequest.getSession_id();
-        return sessionRequest.getSuccess();
-    }
-
-    public String returnSessionID()
-    {
-        sessionID = sessionRequest.getSession_id();
-        return sessionID;
+        return sessionRequest;
     }
 
     public String DeleteSession()
