@@ -28,7 +28,7 @@ public class ListController {
     public String ListExr()
     {
         AuthenticationController cls = new AuthenticationController();
-        sessionID = cls.Authenticate().getSession_id();
+        sessionID = cls.returnSessionID();
         return sessionID;
     }
 

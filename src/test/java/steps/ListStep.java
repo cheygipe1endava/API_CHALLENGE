@@ -32,7 +32,7 @@ public class ListStep {
     public void theUserHasAValidSessionCreatedWithItsAPIKey() {
 
         authControlInstance = new AuthenticationController();
-        Autorization = authControlInstance.Authenticate();
+        //Autorization = authControlInstance.Authenticate();
         Assert.assertEquals("true", Autorization.getSuccess());
     }
 

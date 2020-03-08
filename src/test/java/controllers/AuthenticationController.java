@@ -3,33 +3,28 @@ package controllers;
 import entities.SessionRequests;
 import helpers.JsonHelper;
 import io.restassured.RestAssured;
-import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import io.restassured.specification.RequestSpecification;
 import helpers.PropertiesHelper;
 import builders.URLBuilder;
-
-
 import java.net.URL;
 
 
-public class AuthenticationController {
+public class AuthenticationController extends ApiController{
 
-    String reqToken = " ", sessionID= " ", guestSession= " ", deleteSession= " ";
-
-    private SessionRequests requests, sessionRequest;
-
-    private RequestSpecification httpRequestInstance = RestAssured.given().contentType(ContentType.JSON);
+    private String requestToken;
+    private String sessionID;
+    private String sessionWithLoginBody;
+    private SessionRequests getRequestBody, requests, sessionRequest;
+    /*
+    private final String apiKey = "api_key=3fb4c73306abfe5787339b5dba7276ba";
+    private final String SESSION = "session/";
+    private final String NEW = "new?";
+    private final String TOKEN = "token";
+     */
 
     public AuthenticationController() {
-    }
-
-    public SessionRequests Authenticate() {
-        GuestSession();
-        TakeAPIResponse();
-        SessionWithLogin();
-        CreateSession();
-        return sessionRequest;
+        super();
+        RestAssured.basePath="authentication/";
     }
 
     public String GuestSession()
@@ -37,61 +32,81 @@ public class AuthenticationController {
         URL idUrl = new URLBuilder()
                 .addDomain(PropertiesHelper.getValueByKey("url.base"))
                 .addPathStep("authentication/guest_session/new")
-                .addQuery(PropertiesHelper.getValueByKey("url.query"))
                 .build();
-
-        Response response = httpRequestInstance.get(idUrl);
+/*
+        URI builder = new URIBuilder("https://api.themoviedb.org")
+                                             .setScheme("https").setHost("api.themoviedb.org")
+                                             .setPath("authentication/guest_session/new")
+                                             .setQuery("api_key=3fb4c73306abfe5787339b5dba7276ba")
+                                             .build().toString();
+ */
+        Response response = requestSpecification.get(idUrl);
         requests = JsonHelper.responseToRequestsObj(response);
         String a = response.getBody().asString();
-        guestSession = requests.getGuest_session_id();
-        return guestSession;
+        return requests.getGuest_session_id();
 
     }
 
-    public void TakeAPIResponse() {
-        URL idUrl = new URLBuilder()
-                .addDomain(PropertiesHelper.getValueByKey("url.base"))
-                .addPathStep("authentication/token/new")
-                .addQuery(PropertiesHelper.getValueByKey("url.query"))
-                .build();
-
-        Response response = httpRequestInstance.get(idUrl);
-        requests = JsonHelper.responseToRequestsObj(response);
-        reqToken = requests.getRequest_token();
+    public URL gettingURL(String endpoint){
+        switch (endpoint){
+            case "token":
+                return new URLBuilder()
+                        .addDomain(PropertiesHelper.getValueByKey("url.base"))
+                        .addPathStep("authentication/token/new")
+                        .build();
+            case "validate":
+                return new URLBuilder()
+                        .addDomain(PropertiesHelper.getValueByKey("url.base"))
+                        .addPathStep("authentication/token/validate_with_login")
+                        .build();
+            case "session":
+                return new URLBuilder()
+                        .addDomain(PropertiesHelper.getValueByKey("url.base"))
+                        .addPathStep("authentication/session/new")
+                        .build();
+            default:
+        }
+        return null;
     }
 
-    public void SessionWithLogin() {
-
-
-        String SessionBody = "{\"username\":\"FELIPE_GIRALDO_PEREZ\"," +
-                "\"password\":\"1234\"," +
-                "\"request_token\":" + "\"" +  reqToken + "\"" + "}";
-
-        URL idUrl = new URLBuilder()
-                .addDomain(PropertiesHelper.getValueByKey("url.base"))
-                .addPathStep("authentication/token/validate_with_login")
-                .addQuery(PropertiesHelper.getValueByKey("url.query"))
-                .build();
-
-        Response response = httpRequestInstance.given().body(SessionBody).and().post(idUrl);
-        requests = JsonHelper.responseToRequestsObj(response);
-        reqToken = requests.getRequest_token();
-    }
-
-    public SessionRequests CreateSession()
+    public void sessionWithLoginBody()
     {
-        String SessionBody = "{\"request_token\":" + "\"" +  reqToken + "\"" + "}";
+        sessionWithLoginBody = "{\"username\":\"FELIPE_GIRALDO_PEREZ\"," +
+                "\"password\":\"1234\"," +
+                "\"request_token\":" + "\"" +  requestToken + "\"" + "}";
+    }
 
-        URL idUrl = new URLBuilder()
-                .addDomain(PropertiesHelper.getValueByKey("url.base"))
-                .addPathStep("authentication/session/new")
-                .addQuery(PropertiesHelper.getValueByKey("url.query"))
-                .build();
+    public void createSessionBody()
+    {
+        sessionWithLoginBody = "{\"request_token\":" + "\"" +  requestToken + "\"" + "}";
+    }
 
-        Response response = httpRequestInstance.given().body(SessionBody).and().post(idUrl);
-        sessionRequest = JsonHelper.responseToRequestsObj(response);
+    public void getRequestToken()
+    {
+        getRequestBody = JsonHelper.responseToRequestsObj(requestSpecification.get(gettingURL("token")));
+        requestToken = getRequestBody.getRequest_token();
+    }
+
+    public void sessionWithLogin()
+    {
+        Response sendRequest = requestSpecification.given().body(sessionWithLoginBody)
+                                .and().post(gettingURL("validate"));
+        getRequestBody = JsonHelper.responseToRequestsObj(sendRequest);
+    }
+
+    public String createSession()
+    {
+        Response sendRequest = requestSpecification.given().body(sessionWithLoginBody)
+                                .and().post(gettingURL("session"));
+        sessionRequest = JsonHelper.responseToRequestsObj(sendRequest);
+        //sessionID = sessionRequest.getSession_id();
+        return sessionRequest.getSuccess();
+    }
+
+    public String returnSessionID()
+    {
         sessionID = sessionRequest.getSession_id();
-        return sessionRequest;
+        return sessionID;
     }
 
     public String DeleteSession()
@@ -101,14 +116,13 @@ public class AuthenticationController {
         URL idUrl = new URLBuilder()
                 .addDomain(PropertiesHelper.getValueByKey("url.base"))
                 .addPathStep("authentication/session")
-                .addQuery(PropertiesHelper.getValueByKey("url.query"))
                 .build();
 
-        Response response = httpRequestInstance.given().body(SessionBody).and().delete(idUrl);
+        Response response = requestSpecification.given().body(SessionBody).and().delete(idUrl);
         requests = JsonHelper.responseToRequestsObj(response);
-        deleteSession = requests.getSuccess();
-        return deleteSession;
+        return requests.getSuccess();
     }
+
 
 
 }
