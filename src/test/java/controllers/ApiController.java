@@ -16,7 +16,7 @@ public class ApiController {
 
     public ApiController() {
         this.requestSpecification = RestAssured.given().contentType(ContentType.JSON);
-        RestAssured.baseURI="https://api.themoviedb.org/3/";
+        //RestAssured.baseURI="https://api.themoviedb.org/3/";
     }
 
     public URL gettingURL(String endpoint){

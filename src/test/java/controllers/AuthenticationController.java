@@ -34,7 +34,7 @@ public class AuthenticationController extends ApiController{
 
     public AuthenticationController() {
         super();
-        RestAssured.basePath="authentication/";
+        //RestAssured.basePath="authentication/";
     }
 
     public String GuestSession()

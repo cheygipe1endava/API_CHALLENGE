@@ -8,17 +8,13 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import helpers.JsonHelper;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
-import org.eclipse.jetty.client.api.Authentication;
 import org.junit.Assert;
-import org.yecht.Data;
-
 import java.net.URL;
-import java.util.List;
+
 
 public class ListStep{
 
@@ -27,7 +23,6 @@ public class ListStep{
     private ListRequests listRequests;
     private String successResult, sessionID, listID;
     private Response response, responseMovie;
-    private RequestSpecification httpRequestInstance = RestAssured.given().contentType(ContentType.JSON);
     private URL idUrl;
     private ListRequests requests;
 
