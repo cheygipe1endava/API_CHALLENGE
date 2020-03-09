@@ -10,15 +10,16 @@ Background: Valid session created
     And the response contains the new list
 
   Scenario: The user needs to add a new movie to the list
-    Given the user wants to add a new movie to the list in TMDB
+    And the user wants to add a new movie to the list in TMDB
     When the user send a request to add a movie
-    Then the response contains status code
-    And the movie was successfully added
+    Then the response contains a status code for the added movie
+
 
   Scenario: The user needs to ask for the list details of the created list
     Given the details of the list must be shown
     When the user send a request to get details of the list
     Then the response contains details of the list
+
 
 
 

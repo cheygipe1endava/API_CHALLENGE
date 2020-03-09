@@ -16,7 +16,8 @@ public class ListStep{
     private String sessionID, listID;
 
     @Given("^the user has a valid session created with its API Key$")
-    public void theUserHasAValidSessionCreatedWithItsAPIKey() {
+    public void theUserHasAValidSessionCreatedWithItsAPIKey()
+    {
         AuthenticationController authenticationController = new AuthenticationController();
         sessionID = authenticationController.Authenticate().getSession_id();
     }
@@ -50,28 +51,22 @@ public class ListStep{
     @Given("^the user wants to add a new movie to the list in TMDB$")
     public void theUserWantsToAddANewMovieToTheListInTMDB()
     {
-        listController.getListID(listID);
+        listController.getSessionID(sessionID);
     }
 
     @When("^the user send a request to add a movie$")
     public void theUserSendARequestToAddAMovie()
     {
         listController.createAddMovieBody();
-        listController.getSessionID(sessionID);
         listController.sendAddMovieRequest();
     }
 
-    @Then("^the response contains status code$")
-    public void theResponseContainsStatusCode()
+    @Then("^the response contains a status code for the added movie$")
+    public void theResponseContainsAStatusCodeForTheAddedMovie()
     {
         listController.getAddMovieResponse();
-        Assert.assertEquals("User has added a valid movie","12", listController.getAddMovieResponse().getStatus_code());
-    }
-
-    @And("^the movie was successfully added$")
-    public void theMovieWasSuccessfullyAdded()
-    {
-
+        Assert.assertEquals("User has added a valid movie to the list",
+                "12", listController.getAddMovieResponse().getStatus_code());
     }
 
     @Given("^the details of the list must be shown$")
@@ -91,4 +86,6 @@ public class ListStep{
     {
         listController.getListDetailsResponse();
     }
+
+
 }

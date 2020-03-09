@@ -15,6 +15,7 @@ public class ListController extends ApiController{
     private ListRequests requests, response;
     private URL idUrl;
     private Response movieResponse, sendRequest;
+    private int temporaryListID = 135096;
 
     public ListController(){}
 
@@ -35,13 +36,13 @@ public class ListController extends ApiController{
             case "addMovie":
                 return new URLBuilder()
                         .addDomain(PropertiesHelper.getValueByKey("url.base"))
-                        .addPathStep("list/" + listID + "/add_item")
+                        .addPathStep("list/" + temporaryListID + "/add_item")
                         .addQuery("&session_id=" + sessionID)
                         .build();
             case "listDetails":
                 return new URLBuilder()
                         .addDomain(PropertiesHelper.getValueByKey("url.base"))
-                        .addPathStep("list/" + listID)
+                        .addPathStep("list/" + temporaryListID)
                         .addQuery("&language=en-US")
                         .build();
             default:
@@ -75,8 +76,7 @@ public class ListController extends ApiController{
 
     public void createAddMovieBody()
     {
-        String a = listID;
-        listBody = "{\"media_id\": 18}";
+        listBody = "{\"media_id\": 330457}";
     }
 
     public void sendAddMovieRequest()
@@ -87,6 +87,7 @@ public class ListController extends ApiController{
 
     public ListRequests getAddMovieResponse()
     {
+        String verifySuccessAdd = movieResponse.getBody().asString();
         response = JsonHelper.responseToListObj(movieResponse);
         return response;
     }

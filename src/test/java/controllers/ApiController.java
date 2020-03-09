@@ -13,6 +13,7 @@ public class ApiController {
     protected RequestSpecification requestSpecification;
 
     public ApiController() {
+        System.setProperty("https.protocols", "TLSv1,TLSv1.1,TLSv1.2");
         this.requestSpecification = RestAssured.given().contentType(ContentType.JSON);
         //RestAssured.baseURI="https://api.themoviedb.org/3/";
     }
