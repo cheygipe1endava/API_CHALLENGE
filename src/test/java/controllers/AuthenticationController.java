@@ -20,18 +20,10 @@ public class AuthenticationController extends ApiController{
     private final String TOKEN = "token";
      */
 
-    public SessionRequests Authenticate() {
-        getRequestToken();
-        sessionWithLoginBody();
-        sessionWithLogin();
-        createSessionBody();
-        createSession();
-        return sessionRequest;
-    }
-
-    public AuthenticationController() {
+    public AuthenticationController()
+    {
         super();
-        //RestAssured.basePath="authentication/";
+        //requestSpecification.basePath("authentication/");
     }
 
     public String GuestSession()
@@ -124,8 +116,14 @@ public class AuthenticationController extends ApiController{
         return requests.getSuccess();
     }
 
-
-
+    public SessionRequests Authenticate() {
+        getRequestToken();
+        sessionWithLoginBody();
+        sessionWithLogin();
+        createSessionBody();
+        createSession();
+        return sessionRequest;
+    }
 }
 
 

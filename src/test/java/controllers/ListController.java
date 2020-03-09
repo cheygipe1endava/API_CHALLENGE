@@ -1,13 +1,12 @@
 package controllers;
 
 import entities.ListRequests;
+import entities.SessionRequests;
 import helpers.JsonHelper;
 import io.restassured.response.Response;
 import helpers.PropertiesHelper;
 import builders.URLBuilder;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 
 public class ListController extends ApiController{
 
@@ -15,13 +14,18 @@ public class ListController extends ApiController{
     private ListRequests requests, response;
     private URL idUrl;
     private Response movieResponse, sendRequest;
-    private int temporaryListID = 135096;
+    private int temporaryListID = 135164;
 
     public ListController(){}
 
     public void getSessionID(String sessionID)
     {
         this.sessionID = sessionID;
+    }
+
+    public void getListID(String listIDReturn)
+    {
+        listID = listIDReturn;
     }
 
 
@@ -36,7 +40,7 @@ public class ListController extends ApiController{
             case "addMovie":
                 return new URLBuilder()
                         .addDomain(PropertiesHelper.getValueByKey("url.base"))
-                        .addPathStep("list/" + temporaryListID + "/add_item")
+                        .addPathStep("list/" + listID + "/add_item")
                         .addQuery("&session_id=" + sessionID)
                         .build();
             case "listDetails":
@@ -51,15 +55,30 @@ public class ListController extends ApiController{
                         .addPathStep("list/" + temporaryListID + "/item_status")
                         .addQuery("&movie_id=" + 330457)
                         .build();
+            case "removeItems":
+                return new URLBuilder()
+                        .addDomain(PropertiesHelper.getValueByKey("url.base"))
+                        .addPathStep("list/" + temporaryListID + "/remove_item")
+                        .addQuery("&session_id=" + sessionID)
+                        .build();
+            case "clearList":
+                return new URLBuilder()
+                        .addDomain(PropertiesHelper.getValueByKey("url.base"))
+                        .addPathStep("list/" + temporaryListID + "/clear")
+                        .addQuery("&session_id=" + sessionID + "&confirm=true")
+                        .build();
+            case "deleteList":
+                return new URLBuilder()
+                        .addDomain(PropertiesHelper.getValueByKey("url.base"))
+                        .addPathStep("list/" + listID)
+                        .addQuery("&session_id=" + sessionID)
+                        .build();
             default:
         }
         return null;
     }
 
-    public void getListID(String listIDReturn)
-    {
-        listID = listIDReturn;
-    }
+
 
     public void createListBody()
     {
@@ -80,7 +99,7 @@ public class ListController extends ApiController{
         return response;
     }
 
-    public void createAddMovieBody()
+    public void createMovieBody()
     {
         listBody = "{\"media_id\": 330457}";
     }
@@ -124,58 +143,54 @@ public class ListController extends ApiController{
         return response;
     }
 
-
-
-    public Response removeMovie()
+    public void sendItemsRemovalRequest()
     {
-        listBody = "{\"media_id\": 12}";
+        sendRequest = requestSpecification.given().body(listBody).and().post(gettingListURL("removeItems"));
+    }
 
-        URL idUrl = new URLBuilder()
-                .addDomain(PropertiesHelper.getValueByKey("url.base"))
-                .addPathStep("list/" + listID + "/remove_item")
-                .addQuery(PropertiesHelper.getValueByKey("url.query") + "&session_id=" + sessionID)
-                .build();
-
-
-        Response response = requestSpecification.given().body(listBody).and().post(idUrl);
-        requests = JsonHelper.responseToListObj(response);
-        statusCode = requests.getStatus_code();//13
+    public ListRequests getItemsRemovalResponse()
+    {
+        response = JsonHelper.responseToListObj(sendRequest);
         return response;
-
     }
 
-    public Response clearList()
+    public void sendClearListRequest()
     {
-        URL idUrl = new URLBuilder()
-                .addDomain(PropertiesHelper.getValueByKey("url.base"))
-                .addPathStep("list/" + listID + "/clear")
-                .addQuery(PropertiesHelper.getValueByKey("url.query") + "&session_id=" + sessionID + "&confirm=true")
-                .build();
-
-        Response response = requestSpecification.post(idUrl);
-        requests = JsonHelper.responseToListObj(response);
-        statusCode = requests.getStatus_code();//12
-        return  response;
-
+        sendRequest = requestSpecification.post(gettingListURL("clearList"));
     }
 
-    public Response deleteList()
+    public ListRequests getClearListResponse()
     {
-        URL idUrl = new URLBuilder()
-                .addDomain(PropertiesHelper.getValueByKey("url.base"))
-                .addPathStep("list/" + listID)
-                .addQuery(PropertiesHelper.getValueByKey("url.query") + "&session_id=" + sessionID)
-                .build();
-
-        Response response = requestSpecification.delete(idUrl);
-        String a = response.getBody().asString();
-        requests = JsonHelper.responseToListObj(response);
-        statusCode = requests.getStatus_code();//12
-        return  response;
+        response = JsonHelper.responseToListObj(sendRequest);
+        return response;
     }
 
+    public Response sendDeleteList()
+    {
+        sendRequest = requestSpecification.delete(gettingListURL("deleteList"));
+        return sendRequest;
+    }
 
+    public ListRequests getDeleteList()
+    {
+        String a = sendRequest.getBody().asString();
+        response = JsonHelper.responseToListObj(sendRequest);
+        return response;
+    }
 
+    public ListRequests createList()
+    {
+        createListBody();
+        sendCreateListResponse();
+        getResponseBody();
+        this.listID = getResponseBody().getList_id();
+        return getResponseBody();
+    }
 
-
+    public ListRequests deleteList()
+    {
+        sendDeleteList();
+        getDeleteList();
+        return getDeleteList();
+    }
 }

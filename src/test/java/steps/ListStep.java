@@ -8,8 +8,6 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.junit.Assert;
 
-
-
 public class ListStep{
 
     private ListController listController = new ListController();
@@ -46,18 +44,33 @@ public class ListStep{
     public void theResponseContainsTheNewList()
     {
         listID = listController.getResponseBody().getList_id();
+        listController.getListID(listID);
     }
 
-    @Given("^the user wants to add a new movie to the list in TMDB$")
-    public void theUserWantsToAddANewMovieToTheListInTMDB()
+    @And("^the list created is erased$")
+    public void theListCreatedIsErased()
+    {
+        Assert.assertEquals("User has successfully deleted the list",
+                "12", listController.deleteList().getStatus_code());
+    }
+
+    @Given("^a new list must be created in TMDB$")
+    public void aNewListMustBeCreatedInTMDB()
     {
         listController.getSessionID(sessionID);
+        Assert.assertEquals("User has created a valid list","true", listController.createList().getSuccess());
     }
 
-    @When("^the user send a request to add a movie$")
-    public void theUserSendARequestToAddAMovie()
+    @And("^the user wants to add a new movie to the list in TMDB$")
+    public void theUserWantsToAddANewMovieToTheListInTMDB()
     {
-        listController.createAddMovieBody();
+
+    }
+
+    @When("^the user sends a request to add a movie$")
+    public void theUserSendsARequestToAddAMovie()
+    {
+        listController.createMovieBody();
         listController.sendAddMovieRequest();
     }
 
@@ -109,4 +122,68 @@ public class ListStep{
         Assert.assertEquals("Item in list exists",
                 "true", listController.getItemsInListResponse().getItem_present());
     }
+
+    @Given("^movies in the list must be removed$")
+    public void moviesInTheListMustBeRemoved()
+    {
+        listController.getSessionID(sessionID);
+    }
+
+    @When("^the user send a request to remove movies contained in list$")
+    public void theUserSendARequestToRemoveMoviesContainedInList()
+    {
+        listController.createMovieBody();
+        listController.sendItemsRemovalRequest();
+    }
+
+    @Then("^the response shows successful remove action of the movie$")
+    public void theResponseShowsSuccessfulRemoveActionOfTheMovie()
+    {
+        listController.getItemsRemovalResponse();
+        Assert.assertEquals("User has deleted a valid movie from the list",
+                "13", listController.getItemsRemovalResponse().getStatus_code());
+    }
+
+    @Given("^all records in the list must be cleared$")
+    public void allRecordsInTheListMustBeCleared()
+    {
+        listController.getSessionID(sessionID);
+    }
+
+    @When("^the user send a request to clear the list$")
+    public void theUserSendARequestToClearTheList()
+    {
+        listController.sendClearListRequest();
+    }
+
+    @Then("^the response shows successful clear of the list$")
+    public void theResponseShowsSuccessfulClearOfTheList()
+    {
+        listController.getClearListResponse();
+        Assert.assertEquals("User has successfully cleared the list",
+                "12", listController.getItemsRemovalResponse().getStatus_code());
+    }
+
+    @Given("^the created list must be erased from TMDb$")
+    public void theCreatedListMustBeErasedFromTMDb()
+    {
+        listController.getSessionID(sessionID);
+    }
+
+    @When("^the user send a request to delete the list$")
+    public void theUserSendARequestToDeleteTheList()
+    {
+        listController.sendDeleteList();
+        String a = listController.sendDeleteList().getBody().asString();
+    }
+
+    @Then("^the response shows successful delete of the list$")
+    public void theResponseShowsSuccessfulDeleteOfTheList()
+    {
+        listController.getDeleteList();
+        Assert.assertEquals("User has successfully deleted the list",
+                "11", listController.getItemsRemovalResponse().getStatus_code());
+    }
+
+
 }
