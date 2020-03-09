@@ -84,8 +84,29 @@ public class ListStep{
     @Then("^the response contains details of the list$")
     public void theResponseContainsDetailsOfTheList()
     {
-        listController.getListDetailsResponse();
+        String a = listController.getListDetailsBody();
+        Assert.assertEquals("Successfully got list details",
+                "FELIPE_GIRALDO_PEREZ", listController.getListDetailsResponse().getCreated_by());
     }
 
 
+    @Given("^the items contained in the list must be shown$")
+    public void theItemsContainedInTheListMustBeShown()
+    {
+
+    }
+
+    @When("^the user send a request to get those items contained in list$")
+    public void theUserSendARequestToGetThoseItemsContainedInList()
+    {
+        listController.sendItemsInListRequest();
+    }
+
+    @Then("^the response contains information of items in the list$")
+    public void theResponseContainsInformationOfItemsInTheList()
+    {
+        listController.getItemsInListResponse();
+        Assert.assertEquals("Item in list exists",
+                "true", listController.getItemsInListResponse().getItem_present());
+    }
 }

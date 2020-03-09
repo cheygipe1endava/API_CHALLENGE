@@ -45,6 +45,12 @@ public class ListController extends ApiController{
                         .addPathStep("list/" + temporaryListID)
                         .addQuery("&language=en-US")
                         .build();
+            case "movieItems":
+                return new URLBuilder()
+                        .addDomain(PropertiesHelper.getValueByKey("url.base"))
+                        .addPathStep("list/" + temporaryListID + "/item_status")
+                        .addQuery("&movie_id=" + 330457)
+                        .build();
             default:
         }
         return null;
@@ -82,41 +88,40 @@ public class ListController extends ApiController{
     public void sendAddMovieRequest()
     {
         movieResponse = requestSpecification.given().body(listBody).and().post(gettingListURL("addMovie"));
-        String verifySuccessAdd = movieResponse.getBody().asString();
     }
 
     public ListRequests getAddMovieResponse()
     {
-        String verifySuccessAdd = movieResponse.getBody().asString();
+        //String verifySuccessAdd = movieResponse.getBody().asString();
         response = JsonHelper.responseToListObj(movieResponse);
         return response;
     }
 
     public void sendListDetailsRequest()
     {
-        URL a = gettingListURL("listDetails");
         sendRequest = requestSpecification.get(gettingListURL("listDetails"));
     }
 
-    public Response getListDetailsResponse()
+    public ListRequests getListDetailsResponse()
     {
-        String listDetails = sendRequest.getBody().asString();
-        return sendRequest;
+        response = JsonHelper.responseToListObj(sendRequest);
+        return response;
     }
 
-    public Response itemInList()
+    public String getListDetailsBody()
     {
+        return sendRequest.getBody().asString();
+    }
 
-        URL idUrl = new URLBuilder()
-                .addDomain(PropertiesHelper.getValueByKey("url.base"))
-                .addPathStep("list/" + listID + "/item_status")
-                .addQuery(PropertiesHelper.getValueByKey("url.query") + "&movie_id=" + 18)
-                .build();
+    public void sendItemsInListRequest()
+    {
+        sendRequest = requestSpecification.get(gettingListURL("movieItems"));
+    }
 
-        Response response = requestSpecification.get(idUrl);
-        String items = response.getBody().asString();
+    public ListRequests getItemsInListResponse()
+    {
+        response = JsonHelper.responseToListObj(sendRequest);
         return response;
-
     }
 
 
