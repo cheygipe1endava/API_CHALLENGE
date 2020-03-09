@@ -2,13 +2,10 @@ package controllers;
 
 import entities.SessionRequests;
 import helpers.JsonHelper;
-import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import helpers.PropertiesHelper;
 import builders.URLBuilder;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 
 public class AuthenticationController extends ApiController{
 

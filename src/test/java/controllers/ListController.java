@@ -6,6 +6,8 @@ import io.restassured.response.Response;
 import helpers.PropertiesHelper;
 import builders.URLBuilder;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ListController extends ApiController{
 
@@ -21,6 +23,7 @@ public class ListController extends ApiController{
         this.sessionID = sessionID;
     }
 
+
     public URL gettingListURL(String endpoint){
         switch (endpoint){
             case "listCreation":
@@ -29,68 +32,75 @@ public class ListController extends ApiController{
                         .addPathStep("list")
                         .addQuery("&session_id=" + sessionID)
                         .build();
+            case "addMovie":
+                return new URLBuilder()
+                        .addDomain(PropertiesHelper.getValueByKey("url.base"))
+                        .addPathStep("list/" + listID + "/add_item")
+                        .addQuery("&session_id=" + sessionID)
+                        .build();
+            case "listDetails":
+                return new URLBuilder()
+                        .addDomain(PropertiesHelper.getValueByKey("url.base"))
+                        .addPathStep("list/" + listID)
+                        .addQuery("&language=en-US")
+                        .build();
             default:
         }
         return null;
     }
 
+    public void getListID(String listIDReturn)
+    {
+        listID = listIDReturn;
+    }
+
     public void createListBody()
     {
-        listBody = "{\"name\":\"Mock List challenge\"," +
-                "\"description\":\"Just an awesome list. Mock list for API test challenge.\"," +
+        listBody = "{\"name\":\"Mock List 1\"," +
+                "\"description\":\"\"," +
                 "\"language\":\"en\"}";
     }
 
     public void sendCreateListResponse()
     {
         sendRequest = requestSpecification.given().body(listBody).and().post(gettingListURL("listCreation"));
+        String verifyListCreation = sendRequest.getBody().asString();
     }
 
     public ListRequests getResponseBody()
     {
         response = JsonHelper.responseToListObj(sendRequest);
-        //successString = requests.getSuccess();
-        //successString = JsonHelper.responseToListObj(sendRequest).getSuccess();
         return response;
     }
 
-    public void getIDForList()
+    public void createAddMovieBody()
     {
-        response = JsonHelper.responseToListObj(sendRequest);
-        listID = response.getList_id();
+        String a = listID;
+        listBody = "{\"media_id\": 18}";
     }
 
-    public String  addMovie()
+    public void sendAddMovieRequest()
     {
+        movieResponse = requestSpecification.given().body(listBody).and().post(gettingListURL("addMovie"));
+        String verifySuccessAdd = movieResponse.getBody().asString();
+    }
 
-        listBody = "{\"media_id\": 12}";
-
-        idUrl = new URLBuilder()
-                .addDomain(PropertiesHelper.getValueByKey("url.base"))
-                .addPathStep("list/" + listID + "/add_item")
-                .addQuery(PropertiesHelper.getValueByKey("url.query") + "&session_id=" + sessionID)
-                .build();
-
-        movieResponse = requestSpecification.given().body(listBody).and().post(idUrl);
+    public ListRequests getAddMovieResponse()
+    {
         response = JsonHelper.responseToListObj(movieResponse);
-        String statusCodeString = response.getStatus_code();
-        return statusCodeString;
+        return response;
     }
 
-
-    public Response getListDetails()
+    public void sendListDetailsRequest()
     {
-        URL idUrl = new URLBuilder()
-                .addDomain(PropertiesHelper.getValueByKey("url.base"))
-                .addPathStep("list/" + listID)
-                .addQuery(PropertiesHelper.getValueByKey("url.query") + "&language=en-US")
-                .build();
+        URL a = gettingListURL("listDetails");
+        sendRequest = requestSpecification.get(gettingListURL("listDetails"));
+    }
 
-
-
-        Response response = requestSpecification.get(idUrl);
-        String listDetails = response.getBody().asString();
-        return response;
+    public Response getListDetailsResponse()
+    {
+        String listDetails = sendRequest.getBody().asString();
+        return sendRequest;
     }
 
     public Response itemInList()

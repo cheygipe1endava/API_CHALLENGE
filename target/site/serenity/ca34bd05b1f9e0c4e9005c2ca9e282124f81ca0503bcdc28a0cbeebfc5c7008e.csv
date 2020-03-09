@@ -1,7 +1,0 @@
-"Story","Title","Result","Date","Stability","Duration (s)"
-"List","The user needs to add a new movie to list","PENDING","2020-02-28T07:42:54.2112715-05:00[America/Bogota]","0.0","1.63"
-"List","The user needs to ask for list details to list","PENDING","2020-02-28T07:42:55.8620296-05:00[America/Bogota]","0.0","2.81"
-"List","The user needs to verify the items in the list","PENDING","2020-02-28T07:42:58.6815858-05:00[America/Bogota]","0.0","1.48"
-"List","The user needs to remove movies in the list","PENDING","2020-02-28T07:43:00.1697256-05:00[America/Bogota]","0.0","1.46"
-"List","The user needs to clear records of the list","PENDING","2020-02-28T07:43:01.6388171-05:00[America/Bogota]","0.0","1.51"
-"List","The user needs to delete the list","PENDING","2020-02-28T07:43:03.1507696-05:00[America/Bogota]","0.0","1.38"

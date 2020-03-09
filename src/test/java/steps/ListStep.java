@@ -2,29 +2,18 @@ package steps;
 
 import controllers.AuthenticationController;
 import controllers.ListController;
-import entities.ListRequests;
-import entities.SessionRequests;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import io.restassured.RestAssured;
-import io.restassured.http.ContentType;
-import io.restassured.response.Response;
-import io.restassured.specification.RequestSpecification;
 import org.junit.Assert;
-import java.net.URL;
+
 
 
 public class ListStep{
 
     private ListController listController = new ListController();
-    private SessionRequests Autorization;
-    private ListRequests listRequests;
-    private String successResult, sessionID, listID;
-    private Response response, responseMovie;
-    private URL idUrl;
-    private ListRequests requests;
+    private String sessionID, listID;
 
     @Given("^the user has a valid session created with its API Key$")
     public void theUserHasAValidSessionCreatedWithItsAPIKey() {
@@ -48,13 +37,58 @@ public class ListStep{
     @Then("^the service responds with a success result$")
     public void theServiceRespondsWithASuccessResult()
     {
-        successResult = listController.getResponseBody().getSuccess();
-        Assert.assertEquals("User has created a valid list","true", successResult);
+        listController.getResponseBody();
+        Assert.assertEquals("User has created a valid list","true", listController.getResponseBody().getSuccess());
     }
 
     @And("^the response contains the new list$")
     public void theResponseContainsTheNewList()
     {
         listID = listController.getResponseBody().getList_id();
+    }
+
+    @Given("^the user wants to add a new movie to the list in TMDB$")
+    public void theUserWantsToAddANewMovieToTheListInTMDB()
+    {
+        listController.getListID(listID);
+    }
+
+    @When("^the user send a request to add a movie$")
+    public void theUserSendARequestToAddAMovie()
+    {
+        listController.createAddMovieBody();
+        listController.getSessionID(sessionID);
+        listController.sendAddMovieRequest();
+    }
+
+    @Then("^the response contains status code$")
+    public void theResponseContainsStatusCode()
+    {
+        listController.getAddMovieResponse();
+        Assert.assertEquals("User has added a valid movie","12", listController.getAddMovieResponse().getStatus_code());
+    }
+
+    @And("^the movie was successfully added$")
+    public void theMovieWasSuccessfullyAdded()
+    {
+
+    }
+
+    @Given("^the details of the list must be shown$")
+    public void theDetailsOfTheListMustBeShown()
+    {
+
+    }
+
+    @When("^the user send a request to get details of the list$")
+    public void theUserSendARequestToGetDetailsOfTheList()
+    {
+        listController.sendListDetailsRequest();
+    }
+
+    @Then("^the response contains details of the list$")
+    public void theResponseContainsDetailsOfTheList()
+    {
+        listController.getListDetailsResponse();
     }
 }

@@ -1,7 +1,5 @@
 package entities;
 
-
-
 public class SessionRequests {
 
     private String success;
@@ -48,7 +46,7 @@ public class SessionRequests {
 
     public String getDelete_session_id() {return delete_session_id;}
 
-    public void setDelete_session_id(String delete_session_id) {this.delete_session_id = delete_session_id;}
+    //public void setDelete_session_id(String delete_session_id) {this.delete_session_id = delete_session_id;}
 
 
 

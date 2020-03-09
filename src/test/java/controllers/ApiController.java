@@ -8,8 +8,6 @@ import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 
 public class ApiController {
     protected RequestSpecification requestSpecification;
@@ -43,4 +41,5 @@ public class ApiController {
         }
         return null;
     }
+
 }
