@@ -10,11 +10,11 @@ import java.net.URL;
 
 public class ListController extends ApiController{
 
-    private String sessionID, listBody, successString, listID, statusCode;
+    private String listBody, successString, statusCode, listID, sessionID;
     private ListRequests requests, response;
     private URL idUrl;
     private Response movieResponse, sendRequest;
-    private int temporaryListID = 135164;
+    private int addedMovieID = 330457;
 
     public ListController(){}
 
@@ -27,7 +27,6 @@ public class ListController extends ApiController{
     {
         listID = listIDReturn;
     }
-
 
     public URL gettingListURL(String endpoint){
         switch (endpoint){
@@ -46,25 +45,25 @@ public class ListController extends ApiController{
             case "listDetails":
                 return new URLBuilder()
                         .addDomain(PropertiesHelper.getValueByKey("url.base"))
-                        .addPathStep("list/" + temporaryListID)
+                        .addPathStep("list/" + listID)
                         .addQuery("&language=en-US")
                         .build();
             case "movieItems":
                 return new URLBuilder()
                         .addDomain(PropertiesHelper.getValueByKey("url.base"))
-                        .addPathStep("list/" + temporaryListID + "/item_status")
-                        .addQuery("&movie_id=" + 330457)
+                        .addPathStep("list/" + listID + "/item_status")
+                        .addQuery("&movie_id=" + addedMovieID)
                         .build();
             case "removeItems":
                 return new URLBuilder()
                         .addDomain(PropertiesHelper.getValueByKey("url.base"))
-                        .addPathStep("list/" + temporaryListID + "/remove_item")
+                        .addPathStep("list/" + listID + "/remove_item")
                         .addQuery("&session_id=" + sessionID)
                         .build();
             case "clearList":
                 return new URLBuilder()
                         .addDomain(PropertiesHelper.getValueByKey("url.base"))
-                        .addPathStep("list/" + temporaryListID + "/clear")
+                        .addPathStep("list/" + listID + "/clear")
                         .addQuery("&session_id=" + sessionID + "&confirm=true")
                         .build();
             case "deleteList":
@@ -78,19 +77,16 @@ public class ListController extends ApiController{
         return null;
     }
 
-
-
     public void createListBody()
     {
-        listBody = "{\"name\":\"Mock List 1\"," +
+        listBody = "{\"name\":\"Mock List Challenge Correction\"," +
                 "\"description\":\"\"," +
                 "\"language\":\"en\"}";
     }
 
-    public void sendCreateListResponse()
+    public void sendCreateList()
     {
         sendRequest = requestSpecification.given().body(listBody).and().post(gettingListURL("listCreation"));
-        String verifyListCreation = sendRequest.getBody().asString();
     }
 
     public ListRequests getResponseBody()
@@ -101,7 +97,7 @@ public class ListController extends ApiController{
 
     public void createMovieBody()
     {
-        listBody = "{\"media_id\": 330457}";
+        listBody = "{\"media_id\": " + addedMovieID + "}";
     }
 
     public void sendAddMovieRequest()
@@ -111,7 +107,6 @@ public class ListController extends ApiController{
 
     public ListRequests getAddMovieResponse()
     {
-        //String verifySuccessAdd = movieResponse.getBody().asString();
         response = JsonHelper.responseToListObj(movieResponse);
         return response;
     }
@@ -173,7 +168,6 @@ public class ListController extends ApiController{
 
     public ListRequests getDeleteList()
     {
-        String a = sendRequest.getBody().asString();
         response = JsonHelper.responseToListObj(sendRequest);
         return response;
     }
@@ -181,16 +175,23 @@ public class ListController extends ApiController{
     public ListRequests createList()
     {
         createListBody();
-        sendCreateListResponse();
-        getResponseBody();
+        sendCreateList();
         this.listID = getResponseBody().getList_id();
         return getResponseBody();
+    }
+
+    public ListRequests addMovie()
+    {
+        createMovieBody();
+        sendAddMovieRequest();
+        return getAddMovieResponse();
     }
 
     public ListRequests deleteList()
     {
         sendDeleteList();
-        getDeleteList();
         return getDeleteList();
     }
+
+
 }

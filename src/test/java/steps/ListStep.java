@@ -30,7 +30,7 @@ public class ListStep{
     @When("^the user send a request to create the list$")
     public void theUserSendARequestToCreateTheList()
     {
-        listController.sendCreateListResponse();
+        listController.sendCreateList();
     }
 
     @Then("^the service responds with a success result$")
@@ -82,7 +82,7 @@ public class ListStep{
                 "12", listController.getAddMovieResponse().getStatus_code());
     }
 
-    @Given("^the details of the list must be shown$")
+    @And("^the details of the list must be shown$")
     public void theDetailsOfTheListMustBeShown()
     {
 
@@ -97,20 +97,26 @@ public class ListStep{
     @Then("^the response contains details of the list$")
     public void theResponseContainsDetailsOfTheList()
     {
-        String a = listController.getListDetailsBody();
+        listController.getListDetailsBody();
         Assert.assertEquals("Successfully got list details",
                 "FELIPE_GIRALDO_PEREZ", listController.getListDetailsResponse().getCreated_by());
     }
 
+    @And("^a movie must be inserted in the list$")
+    public void aMovieMustBeInsertedInTheList()
+    {
+        Assert.assertEquals("User has added a valid movie to the list",
+                "12", listController.addMovie().getStatus_code());
+    }
 
-    @Given("^the items contained in the list must be shown$")
+    @And("^the items contained in the list must be shown$")
     public void theItemsContainedInTheListMustBeShown()
     {
 
     }
 
-    @When("^the user send a request to get those items contained in list$")
-    public void theUserSendARequestToGetThoseItemsContainedInList()
+    @When("^the user sends a request to get those items contained in list$")
+    public void theUserSendsARequestToGetThoseItemsContainedInList()
     {
         listController.sendItemsInListRequest();
     }
@@ -118,12 +124,11 @@ public class ListStep{
     @Then("^the response contains information of items in the list$")
     public void theResponseContainsInformationOfItemsInTheList()
     {
-        listController.getItemsInListResponse();
         Assert.assertEquals("Item in list exists",
                 "true", listController.getItemsInListResponse().getItem_present());
     }
 
-    @Given("^movies in the list must be removed$")
+    @And("^movies in the list must be removed$")
     public void moviesInTheListMustBeRemoved()
     {
         listController.getSessionID(sessionID);
@@ -144,7 +149,7 @@ public class ListStep{
                 "13", listController.getItemsRemovalResponse().getStatus_code());
     }
 
-    @Given("^all records in the list must be cleared$")
+    @And("^all records in the list must be cleared$")
     public void allRecordsInTheListMustBeCleared()
     {
         listController.getSessionID(sessionID);
@@ -164,17 +169,16 @@ public class ListStep{
                 "12", listController.getItemsRemovalResponse().getStatus_code());
     }
 
-    @Given("^the created list must be erased from TMDb$")
+    @And("^the created list must be erased from TMDb$")
     public void theCreatedListMustBeErasedFromTMDb()
     {
-        listController.getSessionID(sessionID);
+
     }
 
     @When("^the user send a request to delete the list$")
     public void theUserSendARequestToDeleteTheList()
     {
         listController.sendDeleteList();
-        String a = listController.sendDeleteList().getBody().asString();
     }
 
     @Then("^the response shows successful delete of the list$")
@@ -182,8 +186,9 @@ public class ListStep{
     {
         listController.getDeleteList();
         Assert.assertEquals("User has successfully deleted the list",
-                "11", listController.getItemsRemovalResponse().getStatus_code());
+                "12", listController.getItemsRemovalResponse().getStatus_code());
     }
+
 
 
 }
