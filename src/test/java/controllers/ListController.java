@@ -1,7 +1,6 @@
 package controllers;
 
 import entities.ListRequests;
-import entities.SessionRequests;
 import helpers.JsonHelper;
 import io.restassured.response.Response;
 import helpers.PropertiesHelper;
@@ -10,9 +9,8 @@ import java.net.URL;
 
 public class ListController extends ApiController{
 
-    private String listBody, successString, statusCode, listID, sessionID;
-    private ListRequests requests, response;
-    private URL idUrl;
+    private String listBody, listID, sessionID;
+    private ListRequests response;
     private Response movieResponse, sendRequest;
     private int addedMovieID = 330457;
 

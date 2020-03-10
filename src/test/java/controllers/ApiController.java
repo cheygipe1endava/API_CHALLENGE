@@ -16,7 +16,6 @@ public class ApiController {
         System.setProperty("https.protocols", "TLSv1.2");
         this.requestSpecification = RestAssured.given().contentType(ContentType.JSON);
         //requestSpecification.baseUri("https://api.themoviedb.org/3/");
-        //RestAssured.baseURI="https://api.themoviedb.org/3/";
     }
 
     public URL gettingURL(String endpoint){
@@ -37,6 +36,18 @@ public class ApiController {
                 return new URLBuilder()
                         .addDomain(PropertiesHelper.getValueByKey("url.base"))
                         .addPathStep("authentication/session/new")
+                        .addQuery("")
+                        .build();
+            case "guestSession":
+                return new URLBuilder()
+                        .addDomain(PropertiesHelper.getValueByKey("url.base"))
+                        .addPathStep("authentication/guest_session/new")
+                        .addQuery("")
+                        .build();
+            case "deleteSession":
+                return new URLBuilder()
+                        .addDomain(PropertiesHelper.getValueByKey("url.base"))
+                        .addPathStep("authentication/session")
                         .addQuery("")
                         .build();
             default:
