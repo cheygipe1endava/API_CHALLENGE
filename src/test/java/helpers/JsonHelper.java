@@ -2,9 +2,10 @@ package helpers;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import entities.MovieRateRequests;
+import entities.MoviesRateRequests;
 import entities.SessionRequests;
 import entities.ListRequests;
+import entities.TVShowsRateRequest;
 import io.restassured.response.Response;
 
 public class JsonHelper {
@@ -23,8 +24,12 @@ public class JsonHelper {
         return gson.fromJson(response.body().asString(), ListRequests.class);
     }
 
-    public static MovieRateRequests responseToMovieRateObj(Response response) {
-        return gson.fromJson(response.body().asString(), MovieRateRequests.class);
+    public static MoviesRateRequests responseToMovieRateObj(Response response) {
+        return gson.fromJson(response.body().asString(), MoviesRateRequests.class);
+    }
+
+    public static TVShowsRateRequest responseToTVShowRateObj(Response response) {
+        return gson.fromJson(response.body().asString(), TVShowsRateRequest.class);
     }
 }
 

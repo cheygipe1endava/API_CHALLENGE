@@ -11,7 +11,7 @@ import org.junit.Assert;
 
 import static org.hamcrest.CoreMatchers.*;
 
-public class MovieRateStep {
+public class MoviesRateStep {
 
     private AuthenticationController authenticationController = new AuthenticationController();
     private MoviesRateController moviesRateController = new MoviesRateController();
@@ -31,14 +31,14 @@ public class MovieRateStep {
         moviesRateController.getGuestSessionID(guestSessionID);
     }
 
-    @When("^the user sends a request to add the rating$")
-    public void theUserSendsARequestToAddTheRating()
+    @When("^the user sends a request to add the movie rating$")
+    public void theUserSendsARequestToAddTheMovieRating()
     {
         moviesRateController.sendRateMovie();
     }
 
-    @Then("^the service returns a successful result$")
-    public void theServiceReturnsASuccessfulResult()
+    @Then("^the service returns a successful movie rating result$")
+    public void theServiceReturnsASuccessfulMovieRatingResult()
     {
         Assert.assertThat(String.format("Error: The status code returned is not %s or %s", "1", "12"),
                 moviesRateController.getRateMovie().getStatus_code(),
@@ -58,8 +58,8 @@ public class MovieRateStep {
         moviesRateController.sendDeleteMovieRating();
     }
 
-    @Then("^the service returns a successful elimination$")
-    public void theServiceReturnsASuccessfulElimination()
+    @Then("^the service returns a successful movie rating elimination$")
+    public void theServiceReturnsASuccessfulMovieRatingElimination()
     {
         Assert.assertEquals("Movie rate deleted successfully","13",
                 moviesRateController.getDeleteMovieRating().getStatus_code());

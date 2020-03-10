@@ -2,21 +2,22 @@ package controllers;
 
 import builders.URLBuilder;
 import entities.MoviesRateRequests;
+import entities.TVShowsRateRequest;
 import helpers.JsonHelper;
 import helpers.PropertiesHelper;
 import io.restassured.response.Response;
 
 import java.net.URL;
 
-public class MoviesRateController extends ApiController{
+public class TVShowsRateController extends ApiController {
 
     private String guestSessionID, sessionID;
-    private int addedMovieID = 330457;
+    private int addedTVShow = 39852;
     private double rate = 8;
     private Response sendRequest;
-    private MoviesRateRequests response;
+    private TVShowsRateRequest response;
 
-    public MoviesRateController(){  }
+    public TVShowsRateController(){  }
 
     public void getSessionID(String sessionID)
     {
@@ -28,38 +29,38 @@ public class MoviesRateController extends ApiController{
         this.guestSessionID = guestSessionID;
     }
 
-    public URL gettingMovieRateURL(String endpoint){
-        if (endpoint == "rateMovie")
+    public URL gettingTVShowRateURL(String endpoint){
+        if (endpoint == "rateTVShow")
         {
             return new URLBuilder()
                     .addDomain(PropertiesHelper.getValueByKey("url.base"))
-                    .addPathStep("movie/" + addedMovieID + "/rating")
+                    .addPathStep("tv/" + addedTVShow + "/rating")
                     .addQuery("&guest_session_id=" + guestSessionID + "&session_id=" + sessionID)
                     .build();
         }
         return null;
     }
 
-    public void sendRateMovie()
+    public void sendRateTVShow()
     {
         sendRequest = requestSpecification.given().body("{\"value\": " + rate + "}")
-                                            .and().post(gettingMovieRateURL("rateMovie"));
+                .and().post(gettingTVShowRateURL("rateTVShow"));
     }
 
-    public MoviesRateRequests getRateMovie()
+    public TVShowsRateRequest getRateTVShow()
     {
-        response = JsonHelper.responseToMovieRateObj(sendRequest);
+        response = JsonHelper.responseToTVShowRateObj(sendRequest);
         return response;
     }
 
-    public void sendDeleteMovieRating()
+    public void sendDeleteRateTVShow()
     {
-        sendRequest = requestSpecification.delete(gettingMovieRateURL("rateMovie"));
+        sendRequest = requestSpecification.delete(gettingTVShowRateURL("rateTVShow"));
     }
 
-    public MoviesRateRequests getDeleteMovieRating()
+    public TVShowsRateRequest getDeleteRateTVShow()
     {
-        response = JsonHelper.responseToMovieRateObj(sendRequest);
+        response = JsonHelper.responseToTVShowRateObj(sendRequest);
         return response;
     }
 }

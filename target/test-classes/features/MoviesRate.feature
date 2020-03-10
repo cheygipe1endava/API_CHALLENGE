@@ -5,10 +5,10 @@ Feature: Movie Rate
 
   Scenario: The user needs to rate a movie in TMDB
     Given a movie must be rated in TMDB
-    When the user sends a request to add the rating
-    Then the service returns a successful result
+    When the user sends a request to add the movie rating
+    Then the service returns a successful movie rating result
 
   Scenario: The user needs to delete a rate of a movie in TMDB
     Given a movie rating must be deleted from TMDB
     When the user sends a request to delete the rating
-    Then the service returns a successful elimination
+    Then the service returns a successful movie rating elimination
