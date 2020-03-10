@@ -1,5 +1,6 @@
 package controllers;
 
+import cucumber.api.java.eo.Se;
 import entities.SessionRequests;
 import helpers.JsonHelper;
 import io.restassured.response.Response;
@@ -12,6 +13,7 @@ public class AuthenticationController extends ApiController{
     private String requestToken, sessionID;
     private SessionRequests getRequestBody;
     private Response sendRequest;
+
 
     /*
     private final String SESSION = "session/";
@@ -29,6 +31,7 @@ public class AuthenticationController extends ApiController{
 
     public void sendGuestSession()
     {
+        URL a = gettingURL("guestSession");
         sendRequest = requestSpecification.get(gettingURL("guestSession"));
     }
 
@@ -75,6 +78,13 @@ public class AuthenticationController extends ApiController{
     public void getSessionID(String sessionID)
     {
         this.sessionID = sessionID;
+    }
+
+    public SessionRequests guestSession()
+    {
+        sendGuestSession();
+        getGuestSession();
+        return getRequestBody;
     }
 
     public SessionRequests Authenticate() {

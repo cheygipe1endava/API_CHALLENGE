@@ -8,7 +8,7 @@ public class SessionRequests {
     private String guest_session_id;
     private String delete_session_id;
 
-    public SessionRequests() { }
+
 
     public SessionRequests(String success, String request_token, String session_id, String guest_session_id,
                            String delete_session_id) {

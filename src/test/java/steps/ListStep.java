@@ -26,8 +26,8 @@ public class ListStep{
         listController.getSessionID(sessionID);
     }
 
-    @When("^the user send a request to create the list$")
-    public void theUserSendARequestToCreateTheList()
+    @When("^the user sends a request to create the list$")
+    public void theUserSendsARequestToCreateTheList()
     {
         listController.sendCreateList();
     }
@@ -94,8 +94,8 @@ public class ListStep{
 
     }
 
-    @When("^the user send a request to get details of the list$")
-    public void theUserSendARequestToGetDetailsOfTheList()
+    @When("^the user sends a request to get details of the list$")
+    public void theUserSendsARequestToGetDetailsOfTheList()
     {
         listController.sendListDetailsRequest();
     }
@@ -140,8 +140,8 @@ public class ListStep{
         listController.getSessionID(sessionID);
     }
 
-    @When("^the user send a request to remove movies contained in list$")
-    public void theUserSendARequestToRemoveMoviesContainedInList()
+    @When("^the user sends a request to remove movies contained in list$")
+    public void theUserSendsARequestToRemoveMoviesContainedInList()
     {
         listController.createMovieBody();
         listController.sendItemsRemovalRequest();
@@ -161,8 +161,8 @@ public class ListStep{
         listController.getSessionID(sessionID);
     }
 
-    @When("^the user send a request to clear the list$")
-    public void theUserSendARequestToClearTheList()
+    @When("^the user sends a request to clear the list$")
+    public void theUserSendsARequestToClearTheList()
     {
         listController.sendClearListRequest();
     }
@@ -181,8 +181,8 @@ public class ListStep{
 
     }
 
-    @When("^the user send a request to delete the list$")
-    public void theUserSendARequestToDeleteTheList()
+    @When("^the user sends a request to delete the list$")
+    public void theUserSendsARequestToDeleteTheList()
     {
         listController.sendDeleteList();
     }

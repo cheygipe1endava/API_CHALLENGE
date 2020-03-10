@@ -1,11 +1,14 @@
 Feature: Movie Rate
 
-  Background: Valid session created
-    Given the user has a valid session created with its API Key
+  Background: Valid session and guest session created
+    Given the user has a valid session and guest session created with its API Key
 
-  Scenario: The user needs to create a new list in TMDB
-    Given a new list needs to be created in TMDB
-    When the user send a request to create the list
-    Then the service responds with a success result
-    And the response contains the new list
-    And the list created is erased
+  Scenario: The user needs to rate a movie in TMDB
+    Given a movie must be rated in TMDB
+    When the user sends a request to add the rating
+    Then the service returns a successful result
+
+  Scenario: The user needs to delete a rate of a movie in TMDB
+    Given a movie rating must be deleted from TMDB
+    When the user sends a request to delete the rating
+    Then the service returns a successful elimination

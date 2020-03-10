@@ -8,7 +8,7 @@ public class ListRequests {
     private String created_by;
     private String item_present;
 
-    //public ListRequests(){ }
+
 
     public ListRequests(String list_id, String status_code, String success, String created_by, String item_present)
     {

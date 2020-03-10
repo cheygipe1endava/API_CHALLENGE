@@ -2,6 +2,7 @@ package helpers;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import entities.MovieRateRequests;
 import entities.SessionRequests;
 import entities.ListRequests;
 import io.restassured.response.Response;
@@ -20,6 +21,10 @@ public class JsonHelper {
 
     public static ListRequests responseToListObj(Response response) {
         return gson.fromJson(response.body().asString(), ListRequests.class);
+    }
+
+    public static MovieRateRequests responseToMovieRateObj(Response response) {
+        return gson.fromJson(response.body().asString(), MovieRateRequests.class);
     }
 }
 
