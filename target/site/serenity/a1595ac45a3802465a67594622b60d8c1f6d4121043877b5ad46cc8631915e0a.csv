@@ -1,0 +1,3 @@
+"Story","Title","Result","Date","Stability","Duration (s)"
+"Movie Rate","The user needs to rate a movie in TMDB","SUCCESS","2020-03-10T18:52:13.41-05:00[America/Bogota]","0.0","1.48"
+"Movie Rate","The user needs to delete a rate of a movie in TMDB","SUCCESS","2020-03-10T18:52:14.889-05:00[America/Bogota]","0.0","1.52"

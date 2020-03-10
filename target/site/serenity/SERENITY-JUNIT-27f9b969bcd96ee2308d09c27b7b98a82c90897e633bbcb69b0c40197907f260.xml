@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="UTF-8"?><testsuite errors="0" failures="0" name="Movie Rate" skipped="0" tests="2" time="3.0" timestamp="2020-03-10 06:52:13"><testcase name="The user needs to rate a movie in TMDB"/><testcase name="The user needs to delete a rate of a movie in TMDB"/></testsuite>

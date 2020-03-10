@@ -1,0 +1,3 @@
+"Story","Title","Result","Date","Stability","Duration (s)"
+"TV Shows Rate","The user needs to rate a TV show in TMDB","SUCCESS","2020-03-10T18:52:19.597-05:00[America/Bogota]","0.0","1.61"
+"TV Shows Rate","The user needs to delete a rate of a TV show in TMDB","SUCCESS","2020-03-10T18:52:21.213-05:00[America/Bogota]","0.0","1.48"

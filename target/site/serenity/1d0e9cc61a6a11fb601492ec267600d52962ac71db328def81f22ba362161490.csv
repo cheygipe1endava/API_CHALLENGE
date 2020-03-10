@@ -1,0 +1,8 @@
+"Story","Title","Result","Date","Stability","Duration (s)"
+"List","The user needs to create a new list in TMDB","SUCCESS","2020-03-10T18:51:59.103-05:00[America/Bogota]","0.0","1.85"
+"List","The user needs to add a new movie to the list","SUCCESS","2020-03-10T18:52:00.957-05:00[America/Bogota]","0.0","2.12"
+"List","The user needs to ask for the list details of the created list","ERROR","2020-03-10T18:52:03.078-05:00[America/Bogota]","0.0","1.47"
+"List","The user needs to verify the items in the list","ERROR","2020-03-10T18:52:04.767-05:00[America/Bogota]","0.0","1.88"
+"List","The user needs to remove movies in the list","SUCCESS","2020-03-10T18:52:06.653-05:00[America/Bogota]","0.0","2.5"
+"List","The user needs to clear records of the list","SUCCESS","2020-03-10T18:52:09.153-05:00[America/Bogota]","0.0","2.43"
+"List","The user needs to delete the list","SUCCESS","2020-03-10T18:52:11.589-05:00[America/Bogota]","0.0","1.82"

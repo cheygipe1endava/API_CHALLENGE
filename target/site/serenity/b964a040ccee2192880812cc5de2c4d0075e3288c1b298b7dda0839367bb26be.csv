@@ -1,0 +1,3 @@
+"Story","Title","Result","Date","Stability","Duration (s)"
+"List","The user needs to ask for the list details of the created list","ERROR","2020-03-10T18:52:03.078-05:00[America/Bogota]","0.0","1.47"
+"List","The user needs to verify the items in the list","ERROR","2020-03-10T18:52:04.767-05:00[America/Bogota]","0.0","1.88"

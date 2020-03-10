@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?><testsuite errors="2" failures="0" name="List" skipped="0" tests="7" time="14.06" timestamp="2020-03-10 06:51:59"><testcase name="The user needs to create a new list in TMDB"/><testcase name="The user needs to add a new movie to the list"/><testcase name="The user needs to ask for the list details of the created list"><error message="Expected BEGIN_OBJECT but was STRING at line 1 column 1 path $" type="java.lang.IllegalStateException">Expected BEGIN_OBJECT but was STRING at line 1 column 1 path $</error><system-err>Expected BEGIN_OBJECT but was STRING at line 1 column 1 path $&#13;
+com.google.gson.stream.JsonReader.beginObject(JsonReader.java:385)&#13;
+com.google.gson.Gson.fromJson(Gson.java:922)&#13;
+com.google.gson.Gson.fromJson(Gson.java:887)&#13;
+com.google.gson.Gson.fromJson(Gson.java:836)&#13;
+com.google.gson.Gson.fromJson(Gson.java:808)&#13;
+helpers.JsonHelper.responseToListObj(JsonHelper.java:21)&#13;
+controllers.ListController.getListDetailsResponse(ListController.java:114)&#13;
+steps.ListStep.theResponseContainsDetailsOfTheList(ListStep.java:109)&#13;
+cucumber.runner.Runner.runPickle(Runner.java:80)&#13;
+</system-err></testcase><testcase name="The user needs to verify the items in the list"><error message="Expected BEGIN_OBJECT but was STRING at line 1 column 1 path $" type="java.lang.IllegalStateException">Expected BEGIN_OBJECT but was STRING at line 1 column 1 path $</error><system-err>Expected BEGIN_OBJECT but was STRING at line 1 column 1 path $&#13;
+com.google.gson.stream.JsonReader.beginObject(JsonReader.java:385)&#13;
+com.google.gson.Gson.fromJson(Gson.java:922)&#13;
+com.google.gson.Gson.fromJson(Gson.java:887)&#13;
+com.google.gson.Gson.fromJson(Gson.java:836)&#13;
+com.google.gson.Gson.fromJson(Gson.java:808)&#13;
+helpers.JsonHelper.responseToListObj(JsonHelper.java:21)&#13;
+controllers.ListController.getItemsInListResponse(ListController.java:130)&#13;
+steps.ListStep.theResponseContainsInformationOfItemsInTheList(ListStep.java:135)&#13;
+cucumber.runner.Runner.runPickle(Runner.java:80)&#13;
+</system-err></testcase><testcase name="The user needs to remove movies in the list"/><testcase name="The user needs to clear records of the list"/><testcase name="The user needs to delete the list"/></testsuite>

@@ -1,20 +1,20 @@
 package controllers;
 
 import builders.URLBuilder;
-import entities.MoviesRateRequests;
+import entities.MoviesRate;
 import helpers.JsonHelper;
 import helpers.PropertiesHelper;
 import io.restassured.response.Response;
 
 import java.net.URL;
 
-public class MoviesRateController extends ApiController{
+public class MoviesRateController extends ApiAuthenticationController {
 
     private String guestSessionID, sessionID;
     private int addedMovieID = 330457;
     private double rate = 8;
     private Response sendRequest;
-    private MoviesRateRequests response;
+    private MoviesRate response;
 
     public MoviesRateController(){  }
 
@@ -46,7 +46,7 @@ public class MoviesRateController extends ApiController{
                                             .and().post(gettingMovieRateURL("rateMovie"));
     }
 
-    public MoviesRateRequests getRateMovie()
+    public MoviesRate getRateMovie()
     {
         response = JsonHelper.responseToMovieRateObj(sendRequest);
         return response;
@@ -57,7 +57,7 @@ public class MoviesRateController extends ApiController{
         sendRequest = requestSpecification.delete(gettingMovieRateURL("rateMovie"));
     }
 
-    public MoviesRateRequests getDeleteMovieRating()
+    public MoviesRate getDeleteMovieRating()
     {
         response = JsonHelper.responseToMovieRateObj(sendRequest);
         return response;

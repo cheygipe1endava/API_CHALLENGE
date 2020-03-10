@@ -1,49 +1,37 @@
 package controllers;
 
-import cucumber.api.java.eo.Se;
-import entities.SessionRequests;
+import entities.Session;
 import helpers.JsonHelper;
 import io.restassured.response.Response;
 import helpers.PropertiesHelper;
-import builders.URLBuilder;
-import java.net.URL;
 
-public class AuthenticationController extends ApiController{
+public class AuthenticationController extends ApiAuthenticationController {
 
     private String requestToken, sessionID;
-    private SessionRequests getRequestBody;
-    private Response sendRequest;
-
-
-    /*
-    private final String SESSION = "session/";
-    private final String NEW = "new?";
-    private final String TOKEN = "token";
-     */
+    private Session getRequestBody;
+    private Response response;
+    private final String SESSION = "session";
+    private final String NEW = "new";
+    private final String TOKEN = "token/";
+    private final String GUEST_SESSION = "/guest_session/";
+    private final String VALIDATE_WITH_LOGIN = "validate_with_login";
 
 
     public AuthenticationController()
     {
         super();
-        //requestSpecification.basePath("authentication/");
-        //requestSpecification.queryParam("?api_key=3fb4c73306abfe5787339b5dba7276ba");
+        requestSpecification.basePath("authentication/").queryParam(API_KEY, PropertiesHelper.getValueByKey("api.key"));
     }
 
-    public void sendGuestSession()
+    public Session getGuestSession()
     {
-        URL a = gettingURL("guestSession");
-        sendRequest = requestSpecification.get(gettingURL("guestSession"));
-    }
-
-    public SessionRequests getGuestSession()
-    {
-        getRequestBody = JsonHelper.responseToRequestsObj(sendRequest);
+        getRequestBody = JsonHelper.responseToRequestsObj(requestSpecification.get(GUEST_SESSION + NEW));
         return getRequestBody;
     }
 
     public void getRequestToken()
     {
-        getRequestBody = JsonHelper.responseToRequestsObj(requestSpecification.get(gettingURL("token")));
+        getRequestBody = JsonHelper.responseToRequestsObj(requestSpecification.get(TOKEN + NEW));
         requestToken = getRequestBody.getRequest_token();
     }
 
@@ -51,27 +39,22 @@ public class AuthenticationController extends ApiController{
     {
         getRequestBody = JsonHelper.responseToRequestsObj(requestSpecification.given().body("{\"username\":\"FELIPE_GIRALDO_PEREZ\","
                 + "\"password\":\"1234\"," + "\"request_token\":" + "\"" +  requestToken + "\"" + "}")
-                .and().post(gettingURL("validateSession")));
+                .and().post(TOKEN + VALIDATE_WITH_LOGIN));
         this.requestToken = getRequestBody.getRequest_token();
     }
 
-    public SessionRequests createSession()
+    public Session createSession()
     {
         getRequestBody = JsonHelper.responseToRequestsObj(requestSpecification.given().body("{\"request_token\":" + "\"" +
-                requestToken + "\"" + "}").and().post(gettingURL("sessionCreation")));
+                requestToken + "\"" + "}").and().post(SESSION + "/" + NEW));
         sessionID = getRequestBody.getSession_id();
         return getRequestBody;
     }
 
-    public void sendDeleteSession()
+    public Session deleteSessionRequest()
     {
-        sendRequest = requestSpecification.given().body("{\"session_id\":" + "\"" +  sessionID + "\"" + "}")
-                .and().delete(gettingURL("deleteSession"));
-    }
-
-    public SessionRequests getDeleteSession()
-    {
-        getRequestBody = JsonHelper.responseToRequestsObj(sendRequest);
+        getRequestBody = JsonHelper.responseToRequestsObj(requestSpecification.given().body("{\"session_id\":" + "\"" +
+                sessionID + "\"" + "}").and().delete(SESSION));
         return getRequestBody;
     }
 
@@ -80,24 +63,22 @@ public class AuthenticationController extends ApiController{
         this.sessionID = sessionID;
     }
 
-    public SessionRequests guestSession()
+    public Session guestSession()
     {
-        sendGuestSession();
         getGuestSession();
         return getRequestBody;
     }
 
-    public SessionRequests Authenticate() {
+    public Session Authenticate() {
         getRequestToken();
         sessionWithLogin();
         createSession();
         return getRequestBody;
     }
 
-    public SessionRequests deleteSession()
+    public Session deleteSession()
     {
-        sendDeleteSession();
-        getDeleteSession();
+        deleteSessionRequest();
         return getRequestBody;
     }
 }

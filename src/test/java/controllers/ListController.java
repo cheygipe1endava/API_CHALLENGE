@@ -1,16 +1,16 @@
 package controllers;
 
-import entities.ListRequests;
+import entities.List;
 import helpers.JsonHelper;
 import io.restassured.response.Response;
 import helpers.PropertiesHelper;
 import builders.URLBuilder;
 import java.net.URL;
 
-public class ListController extends ApiController{
+public class ListController extends ApiAuthenticationController {
 
     private String listBody, listID, sessionID;
-    private ListRequests response;
+    private List response;
     private Response movieResponse, sendRequest;
     private int addedMovieID = 330457;
 
@@ -82,7 +82,7 @@ public class ListController extends ApiController{
                                             .and().post(gettingListURL("listCreation"));
     }
 
-    public ListRequests getResponseBody()
+    public List getResponseBody()
     {
         response = JsonHelper.responseToListObj(sendRequest);
         return response;
@@ -98,7 +98,7 @@ public class ListController extends ApiController{
         movieResponse = requestSpecification.given().body(listBody).and().post(gettingListURL("addMovie"));
     }
 
-    public ListRequests getAddMovieResponse()
+    public List getAddMovieResponse()
     {
         response = JsonHelper.responseToListObj(movieResponse);
         return response;
@@ -109,7 +109,7 @@ public class ListController extends ApiController{
         sendRequest = requestSpecification.get(gettingListURL("listDetails"));
     }
 
-    public ListRequests getListDetailsResponse()
+    public List getListDetailsResponse()
     {
         response = JsonHelper.responseToListObj(sendRequest);
         return response;
@@ -125,7 +125,7 @@ public class ListController extends ApiController{
         sendRequest = requestSpecification.get(gettingListURL("movieItems"));
     }
 
-    public ListRequests getItemsInListResponse()
+    public List getItemsInListResponse()
     {
         response = JsonHelper.responseToListObj(sendRequest);
         return response;
@@ -136,7 +136,7 @@ public class ListController extends ApiController{
         sendRequest = requestSpecification.given().body(listBody).and().post(gettingListURL("removeItems"));
     }
 
-    public ListRequests getItemsRemovalResponse()
+    public List getItemsRemovalResponse()
     {
         response = JsonHelper.responseToListObj(sendRequest);
         return response;
@@ -147,7 +147,7 @@ public class ListController extends ApiController{
         sendRequest = requestSpecification.post(gettingListURL("clearList"));
     }
 
-    public ListRequests getClearListResponse()
+    public List getClearListResponse()
     {
         response = JsonHelper.responseToListObj(sendRequest);
         return response;
@@ -159,27 +159,27 @@ public class ListController extends ApiController{
         return sendRequest;
     }
 
-    public ListRequests getDeleteList()
+    public List getDeleteList()
     {
         response = JsonHelper.responseToListObj(sendRequest);
         return response;
     }
 
-    public ListRequests createList()
+    public List createList()
     {
         sendCreateList();
         this.listID = getResponseBody().getList_id();
         return getResponseBody();
     }
 
-    public ListRequests addMovie()
+    public List addMovie()
     {
         createMovieBody();
         sendAddMovieRequest();
         return getAddMovieResponse();
     }
 
-    public ListRequests deleteList()
+    public List deleteList()
     {
         sendDeleteList();
         return getDeleteList();

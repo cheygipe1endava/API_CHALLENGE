@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="UTF-8"?><testsuite errors="0" failures="0" name="Authentication" skipped="0" tests="2" time="4.95" timestamp="2020-03-10 06:51:54"><testcase name="The user needs a valid guest session created with its API Key"/><testcase name="The user needs a valid session created with its API Key"/></testsuite>

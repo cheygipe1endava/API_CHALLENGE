@@ -20,17 +20,11 @@ public class AuthenticationSteps {
     @When("^the user sends the requests for a guest session$")
     public void theUserSendsTheRequestsForAGuestSession()
     {
-        authenticationController.sendGuestSession();
-    }
-
-    @Then("^the user creates a valid guest session id$")
-    public void theUserCreatesAValidGuestSessionId()
-    {
         authenticationController.getGuestSession().getGuest_session_id();
     }
 
-    @And("^the response contains a successful status$")
-    public void theResponseContainsASuccessfulStatus()
+    @Then("^the user created a valid guest session id with successful response$")
+    public void theUserCreatedAValidGuestSessionId()
     {
         Assert.assertEquals("Guest session successfully created",
                 "true", authenticationController.getGuestSession().getSuccess());
@@ -51,13 +45,16 @@ public class AuthenticationSteps {
     @Then("^the user creates a valid session$")
     public void theUserCreatesAValidSession()
     {
-        Assert.assertEquals("User has a valid session key","true",  authenticationController.createSession().getSuccess());
+        Assert.assertEquals("User has a valid session key",
+                "true",  authenticationController.createSession().getSuccess());
     }
 
     @And("^the session is deleted$")
     public void theSessionIsDeleted()
     {
-        Assert.assertEquals("The session was deleted successfully",
-                "true",  authenticationController.getDeleteSession().getSuccess());
+        Assert.assertEquals("Session deleted successfully",
+                "true",  authenticationController.deleteSessionRequest().getSuccess());
     }
+
+
 }

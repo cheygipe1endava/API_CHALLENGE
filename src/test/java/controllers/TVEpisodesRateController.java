@@ -1,20 +1,20 @@
 package controllers;
 
 import builders.URLBuilder;
-import entities.TVShowsRateRequest;
+import entities.TVEpisodesRate;
 import helpers.JsonHelper;
 import helpers.PropertiesHelper;
 import io.restassured.response.Response;
 
 import java.net.URL;
 
-public class TVEpisodesRateController extends ApiController {
+public class TVEpisodesRateController extends ApiAuthenticationController {
 
     private String guestSessionID, sessionID;
     private int addedTVShow = 39852;
     private double rate = 8;
     private Response sendRequest;
-    private TVShowsRateRequest response;
+    private TVEpisodesRate response;
 
     public TVEpisodesRateController(){  }
 
@@ -46,9 +46,9 @@ public class TVEpisodesRateController extends ApiController {
                 .and().post(gettingTVEpisodesRateURL("rateTVEpisode"));
     }
 
-    public TVShowsRateRequest getRateTVEpisode()
+    public TVEpisodesRate getRateTVEpisode()
     {
-        response = JsonHelper.responseToTVShowRateObj(sendRequest);
+        response = JsonHelper.responseToTVEpisodesRateObj(sendRequest);
         return response;
     }
 
@@ -57,9 +57,9 @@ public class TVEpisodesRateController extends ApiController {
         sendRequest = requestSpecification.delete(gettingTVEpisodesRateURL("rateTVEpisode"));
     }
 
-    public TVShowsRateRequest getDeleteRateTVEpisode()
+    public TVEpisodesRate getDeleteRateTVEpisode()
     {
-        response = JsonHelper.responseToTVShowRateObj(sendRequest);
+        response = JsonHelper.responseToTVEpisodesRateObj(sendRequest);
         return response;
     }
 

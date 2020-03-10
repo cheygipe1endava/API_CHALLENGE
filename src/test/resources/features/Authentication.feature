@@ -3,8 +3,7 @@ Feature: Authentication
   Scenario: The user needs a valid guest session created with its API Key
     Given the user requests a guest session
     When the user sends the requests for a guest session
-    Then the user creates a valid guest session id
-    And the response contains a successful status
+    Then the user created a valid guest session id with successful response
 
   Scenario: The user needs a valid session created with its API Key
     Given the user requests a session token
