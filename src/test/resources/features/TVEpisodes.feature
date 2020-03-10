@@ -7,3 +7,8 @@ Feature: TV Episodes Rate
     Given a TV episode must be rated in TMDB
     When the user sends a request to add the TV episode rating
     Then the service returns a successful TV episode rating result
+
+  Scenario: The user needs to delete a rate of a TV episode in TMDB
+    Given a TV episode rating must be deleted from TMDB
+    When the user sends a request to delete the TV episode rating
+    Then the service returns a successful TV episode rating elimination

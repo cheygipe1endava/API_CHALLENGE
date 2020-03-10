@@ -42,4 +42,24 @@ public class TVEpisodesSteps {
                 tvEpisodesRateController.getRateTVEpisode().getStatus_code(),
                 Matchers.anyOf(Matchers.equalTo("1"),Matchers.equalTo("12")));
     }
+
+    @Given("^a TV episode rating must be deleted from TMDB$")
+    public void aTVEpisodeRatingMustBeDeletedFromTMDB()
+    {
+        tvEpisodesRateController.setGuestSessionID(guestSessionID);
+        tvEpisodesRateController.setSessionID(sessionID);
+    }
+
+    @When("^the user sends a request to delete the TV episode rating$")
+    public void theUserSendsARequestToDeleteTheTVEpisodeRating()
+    {
+        tvEpisodesRateController.sendDeleteRateTVEpisode();
+    }
+
+    @Then("^the service returns a successful TV episode rating elimination$")
+    public void theServiceReturnsASuccessfulTVEpisodeRatingElimination()
+    {
+        Assert.assertEquals("TV show rate deleted successfully","13",
+                tvEpisodesRateController.getDeleteRateTVEpisode().getStatus_code());
+    }
 }
