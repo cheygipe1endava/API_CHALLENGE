@@ -57,8 +57,7 @@ public class AuthenticationSteps {
     @And("^the session is deleted$")
     public void theSessionIsDeleted()
     {
-        authenticationController.sendDeleteSession();
         Assert.assertEquals("The session was deleted successfully",
-                "true",  authenticationController.getdeleteSession().getSuccess());
+                "true",  authenticationController.getDeleteSession().getSuccess());
     }
 }

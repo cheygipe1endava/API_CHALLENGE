@@ -9,9 +9,10 @@ import java.net.URL;
 
 public class AuthenticationController extends ApiController{
 
-    private String requestToken;
+    private String requestToken, sessionID;
     private SessionRequests getRequestBody;
     private Response sendRequest;
+
     /*
     private final String SESSION = "session/";
     private final String NEW = "new?";
@@ -55,20 +56,25 @@ public class AuthenticationController extends ApiController{
     {
         getRequestBody = JsonHelper.responseToRequestsObj(requestSpecification.given().body("{\"request_token\":" + "\"" +
                 requestToken + "\"" + "}").and().post(gettingURL("sessionCreation")));
+        sessionID = getRequestBody.getSession_id();
         return getRequestBody;
     }
 
     public void sendDeleteSession()
     {
-        String sessionID = getRequestBody.getSession_id();
         sendRequest = requestSpecification.given().body("{\"session_id\":" + "\"" +  sessionID + "\"" + "}")
                 .and().delete(gettingURL("deleteSession"));
     }
 
-    public SessionRequests getdeleteSession()
+    public SessionRequests getDeleteSession()
     {
         getRequestBody = JsonHelper.responseToRequestsObj(sendRequest);
         return getRequestBody;
+    }
+
+    public void getSessionID(String sessionID)
+    {
+        this.sessionID = sessionID;
     }
 
     public SessionRequests Authenticate() {
@@ -81,7 +87,7 @@ public class AuthenticationController extends ApiController{
     public SessionRequests deleteSession()
     {
         sendDeleteSession();
-        getdeleteSession();
+        getDeleteSession();
         return getRequestBody;
     }
 }

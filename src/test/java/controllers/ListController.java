@@ -75,16 +75,11 @@ public class ListController extends ApiController{
         return null;
     }
 
-    public void createListBody()
-    {
-        listBody = "{\"name\":\"Mock List Challenge Correction\"," +
-                "\"description\":\"\"," +
-                "\"language\":\"en\"}";
-    }
-
     public void sendCreateList()
     {
-        sendRequest = requestSpecification.given().body(listBody).and().post(gettingListURL("listCreation"));
+        sendRequest = requestSpecification.given().body("{\"name\":\"Mock List Challenge Correction\"," +
+                                            "\"description\":\"\"," + "\"language\":\"en\"}")
+                                            .and().post(gettingListURL("listCreation"));
     }
 
     public ListRequests getResponseBody()
@@ -172,7 +167,6 @@ public class ListController extends ApiController{
 
     public ListRequests createList()
     {
-        createListBody();
         sendCreateList();
         this.listID = getResponseBody().getList_id();
         return getResponseBody();

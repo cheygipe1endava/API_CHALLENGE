@@ -10,13 +10,13 @@ import org.junit.Assert;
 
 public class ListStep{
 
+    private AuthenticationController authenticationController = new AuthenticationController();
     private ListController listController = new ListController();
     private String sessionID, listID;
 
     @Given("^the user has a valid session created with its API Key$")
     public void theUserHasAValidSessionCreatedWithItsAPIKey()
     {
-        AuthenticationController authenticationController = new AuthenticationController();
         sessionID = authenticationController.Authenticate().getSession_id();
     }
 
@@ -24,7 +24,6 @@ public class ListStep{
     public void aNewListNeedsToBeCreatedInTMDB()
     {
         listController.getSessionID(sessionID);
-        listController.createListBody();
     }
 
     @When("^the user send a request to create the list$")
@@ -36,7 +35,6 @@ public class ListStep{
     @Then("^the service responds with a success result$")
     public void theServiceRespondsWithASuccessResult()
     {
-        listController.getResponseBody();
         Assert.assertEquals("User has created a valid list","true", listController.getResponseBody().getSuccess());
     }
 
@@ -51,7 +49,15 @@ public class ListStep{
     public void theListCreatedIsErased()
     {
         Assert.assertEquals("User has successfully deleted the list",
-                "12", listController.deleteList().getStatus_code());
+                "11", listController.deleteList().getStatus_code());
+    }
+
+    @And("^the session is erased$")
+    public void theSessionIsErased()
+    {
+        authenticationController.getSessionID(sessionID);
+        Assert.assertEquals("Session deleted successfully",
+                "true",  authenticationController.deleteSession().getSuccess());
     }
 
     @Given("^a new list must be created in TMDB$")
@@ -186,9 +192,6 @@ public class ListStep{
     {
         listController.getDeleteList();
         Assert.assertEquals("User has successfully deleted the list",
-                "12", listController.getItemsRemovalResponse().getStatus_code());
+                "11", listController.getItemsRemovalResponse().getStatus_code());
     }
-
-
-
 }
