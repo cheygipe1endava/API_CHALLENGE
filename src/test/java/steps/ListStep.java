@@ -2,19 +2,16 @@ package steps;
 
 import controllers.AuthenticationController;
 import controllers.ListController;
-import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import net.serenitybdd.core.Serenity;
 import org.junit.Assert;
 
 public class ListStep{
 
     private AuthenticationController authenticationController = new AuthenticationController();
     private ListController listController;
-    private String sessionID, listID;
 
     @Given("^the user has a valid session created with its API Key$")
     public void theUserHasAValidSessionCreatedWithItsAPIKey()
@@ -143,7 +140,7 @@ public class ListStep{
     public void theResponseShowsSuccessfulRemoveActionOfTheMovie()
     {
         Assert.assertEquals("User has deleted a valid movie from the list",
-                "13", listController.getItemsRemovalResponse().getStatus_code());
+                "13", listController.getItemsRemoval().getStatus_code());
     }
 
     @When("^the user sends a request to clear the list$")
@@ -155,8 +152,9 @@ public class ListStep{
     @Then("^the response shows successful clear of the list$")
     public void theResponseShowsSuccessfulClearOfTheList()
     {
+        listController.getListClear();
         Assert.assertEquals("User has successfully cleared the list",
-                "13", listController.getItemsRemovalResponse().getStatus_code());
+                "12", listController.getListClear().getStatus_code());
     }
 
     @When("^the user sends a request to delete the list$")
@@ -169,6 +167,6 @@ public class ListStep{
     public void theResponseShowsSuccessfulDeleteOfTheList()
     {
         Assert.assertEquals("User has successfully deleted the list",
-                "11", listController.getDeleteList().getStatus_code());
+                "12", listController.getDeleteList().getStatus_code());
     }
 }

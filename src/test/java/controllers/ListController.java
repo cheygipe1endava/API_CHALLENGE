@@ -116,10 +116,15 @@ public class ListController extends ApiListController {
         return JsonHelper.responseToListObj(requestSpecification.queryParam(MOVIE_ID, addedMovieID).get("/" + listID + ITEM_STATUS));
     }
 
-    public List getItemsRemovalResponse()
+    public List getItemsRemoval()
     {
         return JsonHelper.responseToListObj(requestSpecification.given().body("{\"media_id\": " + addedMovieID + "}")
                 .and().post("/" + listID + REMOVE_ITEM));
+    }
+
+    public List getListClear()
+    {
+        return JsonHelper.responseToListObj(requestSpecification.queryParam(CONFIRM, true).post("/" + listID + CLEAR));
     }
 
     public List getDeleteList()
