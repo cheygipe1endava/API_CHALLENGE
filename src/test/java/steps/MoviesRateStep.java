@@ -25,7 +25,7 @@ public class MoviesRateStep {
     public void theMovieMustBeRatedAsInTMDB(String movieID, double rating)
     {
         moviesRateController.setMovieID(movieID);
-        moviesRateController.setRating(rating);
+        moviesRateController.setRatingController(rating);
         moviesRateController.setSessionID(sessionID);
         moviesRateController.setGuestSessionID(guestSessionID);
     }

@@ -8,15 +8,18 @@ import io.restassured.response.Response;
 
 import java.net.URL;
 
-public class TVRateController extends ApiRateController {
+public class TVShowRateController extends ApiRateController {
 
-    private String guestSessionID, sessionID;
-    private int addedTVShow = 39852;
-    private double rate = 8;
+    private String guestSessionID, sessionID, addedTVShow;
     private Response sendRequest;
     private TVShowsRate response;
 
-    public TVRateController(){  }
+    public TVShowRateController(){  }
+
+    public void setTVShowID(String movieID)
+    {
+        addedTVShow = movieID;
+    }
 
     public void getSessionID(String sessionID)
     {

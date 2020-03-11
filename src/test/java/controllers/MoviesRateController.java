@@ -21,11 +21,6 @@ public class MoviesRateController extends ApiRateController {
         addedMovieID = movieID;
     }
 
-    public void setRating(double rating)
-    {
-        setRatingController(rating);
-    }
-
     public void setSessionID(String sessionID)
     {
         this.sessionID = sessionID;

@@ -1,7 +1,8 @@
 package steps;
 
 import controllers.AuthenticationController;
-import controllers.TVRateController;
+import controllers.TVShowRateController;
+import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -11,7 +12,7 @@ import org.junit.Assert;
 public class TVShowsRateStep {
 
     private AuthenticationController authenticationController = new AuthenticationController();
-    private TVRateController tvShowsRateController = new TVRateController();
+    private TVShowRateController tvShowsRateController = new TVShowRateController();
     private String sessionID, guestSessionID;
 
     @Given("^the user has a valid session and guest session created$")
@@ -21,9 +22,11 @@ public class TVShowsRateStep {
         sessionID = authenticationController.Authenticate().getSession_id();
     }
 
-    @Given("^a TV show must be rated in TMDB$")
-    public void aTVShowMustBeRatedInTMDB()
+    @Given("^the TV show \"([^\"]*)\" must be rated \"([^\"]*)\" in TMDB$")
+    public void theTVShowMustBeRatedInTMDB(String tvShowID, double rating)
     {
+        tvShowsRateController.setTVShowID(tvShowID);
+        tvShowsRateController.setRatingController(rating);
         tvShowsRateController.getGuestSessionID(guestSessionID);
         tvShowsRateController.getSessionID(sessionID);
     }
@@ -43,9 +46,10 @@ public class TVShowsRateStep {
     }
 
 
-    @Given("^a TV show rating must be deleted from TMDB$")
-    public void aTVShowRatingMustBeDeletedFromTMDB()
+    @Given("^the TV show \"([^\"]*)\" rating must be deleted from TMDB$")
+    public void theTVShowRatingMustBeDeletedFromTMDB(String tvShowID)
     {
+        tvShowsRateController.setTVShowID(tvShowID);
         tvShowsRateController.getGuestSessionID(guestSessionID);
         tvShowsRateController.getSessionID(sessionID);
     }
