@@ -8,22 +8,30 @@ import io.restassured.response.Response;
 
 import java.net.URL;
 
-public class MoviesRateController extends ApiAuthenticationController {
+public class MoviesRateController extends ApiRateController {
 
-    private String guestSessionID, sessionID;
-    private int addedMovieID = 330457;
-    private double rate = 8;
+    private String guestSessionID, sessionID, addedMovieID;
     private Response sendRequest;
     private MoviesRate response;
 
     public MoviesRateController(){  }
 
-    public void getSessionID(String sessionID)
+    public void setMovieID(String movieID)
+    {
+        addedMovieID = movieID;
+    }
+
+    public void setRating(double rating)
+    {
+        setRatingController(rating);
+    }
+
+    public void setSessionID(String sessionID)
     {
         this.sessionID = sessionID;
     }
 
-    public void getGuestSessionID(String guestSessionID)
+    public void setGuestSessionID(String guestSessionID)
     {
         this.guestSessionID = guestSessionID;
     }
@@ -42,7 +50,7 @@ public class MoviesRateController extends ApiAuthenticationController {
 
     public void sendRateMovie()
     {
-        sendRequest = requestSpecification.given().body("{\"value\": " + rate + "}")
+        sendRequest = requestSpecification.given().body(gettingBody("rate"))
                                             .and().post(gettingMovieRateURL("rateMovie"));
     }
 

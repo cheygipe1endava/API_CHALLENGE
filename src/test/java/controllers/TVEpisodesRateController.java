@@ -8,7 +8,7 @@ import io.restassured.response.Response;
 
 import java.net.URL;
 
-public class TVEpisodesRateController extends ApiAuthenticationController {
+public class TVEpisodesRateController extends ApiRateController {
 
     private String guestSessionID, sessionID;
     private int addedTVShow = 39852;
@@ -42,7 +42,7 @@ public class TVEpisodesRateController extends ApiAuthenticationController {
 
     public void sendRateTVEpisode()
     {
-        sendRequest = requestSpecification.given().body("{\"value\": " + rate + "}")
+        sendRequest = requestSpecification.given().body(gettingBody("rate"))
                 .and().post(gettingTVEpisodesRateURL("rateTVEpisode"));
     }
 

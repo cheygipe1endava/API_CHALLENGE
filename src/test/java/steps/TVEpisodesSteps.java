@@ -2,7 +2,6 @@ package steps;
 
 import controllers.AuthenticationController;
 import controllers.TVEpisodesRateController;
-import controllers.TVShowsRateController;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -18,7 +17,7 @@ public class TVEpisodesSteps {
     @Given("^the user has a valid session and guest session created with API KEY$")
     public void theUserHasAValidSessionAndGuestSessionCreatedWithAPIKEY()
     {
-        guestSessionID = authenticationController.guestSession().getGuest_session_id();
+        guestSessionID = authenticationController.getGuestSession().getGuest_session_id();
         sessionID = authenticationController.Authenticate().getSession_id();
     }
 

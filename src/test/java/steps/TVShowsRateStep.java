@@ -1,7 +1,7 @@
 package steps;
 
 import controllers.AuthenticationController;
-import controllers.TVShowsRateController;
+import controllers.TVRateController;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -11,13 +11,13 @@ import org.junit.Assert;
 public class TVShowsRateStep {
 
     private AuthenticationController authenticationController = new AuthenticationController();
-    private TVShowsRateController tvShowsRateController = new TVShowsRateController();
+    private TVRateController tvShowsRateController = new TVRateController();
     private String sessionID, guestSessionID;
 
     @Given("^the user has a valid session and guest session created$")
     public void theUserHasAValidSessionAndGuestSessionCreated()
     {
-        guestSessionID = authenticationController.guestSession().getGuest_session_id();
+        guestSessionID = authenticationController.getGuestSession().getGuest_session_id();
         sessionID = authenticationController.Authenticate().getSession_id();
     }
 

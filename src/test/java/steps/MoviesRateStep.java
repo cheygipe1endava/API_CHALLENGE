@@ -2,14 +2,11 @@ package steps;
 
 import controllers.AuthenticationController;
 import controllers.MoviesRateController;
-import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.hamcrest.Matchers;
 import org.junit.Assert;
-
-import static org.hamcrest.CoreMatchers.*;
 
 public class MoviesRateStep {
 
@@ -20,15 +17,17 @@ public class MoviesRateStep {
     @Given("^the user has a valid session and guest session created with its API Key$")
     public void theUserHasAValidSessionAndGuestSessionCreatedWithItsAPIKey()
     {
-        guestSessionID = authenticationController.guestSession().getGuest_session_id();
+        guestSessionID = authenticationController.getGuestSession().getGuest_session_id();
         sessionID = authenticationController.Authenticate().getSession_id();
     }
 
-    @Given("^a movie must be rated in TMDB$")
-    public void aMovieMustBeRatedInTMDB()
+    @Given("^the movie \"([^\"]*)\" must be rated as \"([^\"]*)\" in TMDB$")
+    public void theMovieMustBeRatedAsInTMDB(String movieID, double rating)
     {
-        moviesRateController.getSessionID(sessionID);
-        moviesRateController.getGuestSessionID(guestSessionID);
+        moviesRateController.setMovieID(movieID);
+        moviesRateController.setRating(rating);
+        moviesRateController.setSessionID(sessionID);
+        moviesRateController.setGuestSessionID(guestSessionID);
     }
 
     @When("^the user sends a request to add the movie rating$")
@@ -45,11 +44,12 @@ public class MoviesRateStep {
                 Matchers.anyOf(Matchers.equalTo("1"),Matchers.equalTo("12")));
     }
 
-    @Given("^a movie rating must be deleted from TMDB$")
-    public void aMovieRatingMustBeDeletedFromTMDB()
+    @Given("^the movie \"([^\"]*)\" rating must be deleted from TMDB$")
+    public void theMovieRatingMustBeDeletedFromTMDB(String movieID)
     {
-        moviesRateController.getSessionID(sessionID);
-        moviesRateController.getGuestSessionID(guestSessionID);
+        moviesRateController.setMovieID(movieID);
+        moviesRateController.setSessionID(sessionID);
+        moviesRateController.setGuestSessionID(guestSessionID);
     }
 
     @When("^the user sends a request to delete the rating$")
