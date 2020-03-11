@@ -2,6 +2,7 @@ package steps;
 
 import controllers.AuthenticationController;
 import controllers.ListController;
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -66,10 +67,10 @@ public class ListStep{
         Assert.assertEquals("User has created a valid list","true", listController.createList().getSuccess());
     }
 
-    @And("^the user wants to add a new movie to the list in TMDB$")
-    public void theUserWantsToAddANewMovieToTheListInTMDB()
+    @And("^the user wants to add a new movie \"([^\"]*)\" to the list in TMDB$")
+    public void theUserWantsToAddANewMovieToTheListInTMDB(String movieID)
     {
-
+        listController.setMovieID(movieID);
     }
 
     @When("^the user sends a request to add a movie$")
@@ -82,27 +83,26 @@ public class ListStep{
     public void theResponseContainsAStatusCodeForTheAddedMovie()
     {
         Assert.assertEquals("User has added a valid movie to the list",
-                "12", listController.getAddMovieResponse().getStatus_code());
+                "12", listController.getAddMovie().getStatus_code());
     }
 
-    @And("^the details of the list must be shown$")
-    public void theDetailsOfTheListMustBeShown()
+    @Given("^the details of the list \"([^\"]*)\" must be shown$")
+    public void theDetailsOfTheListMustBeShown(String createdListID)
     {
-
+        listController.setListID(createdListID);
     }
 
     @When("^the user sends a request to get details of the list$")
     public void theUserSendsARequestToGetDetailsOfTheList()
     {
-        listController.sendListDetailsRequest();
+
     }
 
     @Then("^the response contains details of the list$")
     public void theResponseContainsDetailsOfTheList()
     {
-        listController.getListDetailsBody();
         Assert.assertEquals("Successfully got list details",
-                "FELIPE_GIRALDO_PEREZ", listController.getListDetailsResponse().getCreated_by());
+                "FELIPE_GIRALDO_PEREZ", listController.getListDetails().getCreated_by());
     }
 
     @And("^a movie must be inserted in the list$")
@@ -112,16 +112,17 @@ public class ListStep{
                 "12", listController.addMovie().getStatus_code());
     }
 
-    @And("^the items contained in the list must be shown$")
-    public void theItemsContainedInTheListMustBeShown()
+    @Given("^the movie \"([^\"]*)\" contained in the list \"([^\"]*)\" must be shown$")
+    public void theMovieContainedInTheListMustBeShown(String movieID, String createdListID)
     {
-
+        listController.setListID(createdListID);
+        listController.setMovieID(movieID);
     }
 
     @When("^the user sends a request to get those items contained in list$")
     public void theUserSendsARequestToGetThoseItemsContainedInList()
     {
-        listController.sendItemsInListRequest();
+
     }
 
     @Then("^the response contains information of items in the list$")
@@ -191,4 +192,5 @@ public class ListStep{
         Assert.assertEquals("User has successfully deleted the list",
                 "11", listController.getItemsRemovalResponse().getStatus_code());
     }
+
 }

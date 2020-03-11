@@ -13,27 +13,22 @@ Background: Valid session created
 
   Scenario: The user needs to add a new movie to the list
     Given a new list must be created in TMDB
-    And the user wants to add a new movie to the list in TMDB
+    And the user wants to add a new movie "330457" to the list in TMDB
     When the user sends a request to add a movie
     Then the response contains a status code for the added movie
     And the list created is erased
     And the session is erased
 
   Scenario: The user needs to ask for the list details of the created list
-    Given a new list must be created in TMDB
-    And the details of the list must be shown
+    Given the details of the list "134219" must be shown
     When the user sends a request to get details of the list
     Then the response contains details of the list
-    And the list created is erased
     And the session is erased
 
   Scenario: The user needs to verify the items in the list
-    Given a new list must be created in TMDB
-    And a movie must be inserted in the list
-    And the items contained in the list must be shown
+    Given the movie "330457" contained in the list "134219" must be shown
     When the user sends a request to get those items contained in list
     Then the response contains information of items in the list
-    And the list created is erased
     And the session is erased
 
   Scenario: The user needs to remove movies in the list

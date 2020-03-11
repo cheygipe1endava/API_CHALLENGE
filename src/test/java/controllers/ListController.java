@@ -9,11 +9,13 @@ import java.net.URL;
 
 public class ListController extends ApiListController {
 
-    private String listBody, listID, sessionID;
+    private String listBody, listID, sessionID, addedMovieID;
     private List response;
     private Response movieResponse, sendRequest;
-    private int addedMovieID = 330457;
     private final String SESSION_ID = "session_id";
+    private final String ADD_ITEM = "/add_item";
+    private final String ITEM_STATUS = "/item_status";
+    private final String MOVIE_ID = "movie_id";
 
     public ListController(String sessionID)
     {
@@ -25,6 +27,11 @@ public class ListController extends ApiListController {
     public void setListID(String listIDReturn)
     {
         listID = listIDReturn;
+    }
+
+    public void setMovieID(String movieID)
+    {
+        addedMovieID = movieID;
     }
 
     public URL gettingListURL(String endpoint){
@@ -90,37 +97,20 @@ public class ListController extends ApiListController {
         return listID;
     }
 
-    public List getAddMovieResponse()
+    public List getAddMovie()
     {
         return JsonHelper.responseToListObj(requestSpecification.given().body("{\"media_id\": " + addedMovieID + "}")
-                .and().post("/" + listID + "/add_item"));
+                .and().post("/" + listID + ADD_ITEM));
     }
 
-    public void sendListDetailsRequest()
+    public List getListDetails()
     {
-        sendRequest = requestSpecification.get(gettingListURL("listDetails"));
-    }
-
-    public List getListDetailsResponse()
-    {
-        response = JsonHelper.responseToListObj(sendRequest);
-        return response;
-    }
-
-    public String getListDetailsBody()
-    {
-        return sendRequest.getBody().asString();
-    }
-
-    public void sendItemsInListRequest()
-    {
-        sendRequest = requestSpecification.get(gettingListURL("movieItems"));
+        return JsonHelper.responseToListObj(requestSpecification.get("/" + listID));
     }
 
     public List getItemsInListResponse()
     {
-        response = JsonHelper.responseToListObj(sendRequest);
-        return response;
+        return JsonHelper.responseToListObj(requestSpecification.queryParam(MOVIE_ID, addedMovieID).get("/" + listID + ITEM_STATUS));
     }
 
     public void sendItemsRemovalRequest()
@@ -164,7 +154,7 @@ public class ListController extends ApiListController {
 
     public List addMovie()
     {
-        return getAddMovieResponse();
+        return getAddMovie();
     }
 
     public List deleteList()
