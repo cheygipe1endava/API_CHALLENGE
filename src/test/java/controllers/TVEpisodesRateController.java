@@ -10,13 +10,28 @@ import java.net.URL;
 
 public class TVEpisodesRateController extends ApiRateController {
 
-    private String guestSessionID, sessionID;
-    private int addedTVShow = 39852;
+    private String guestSessionID, sessionID, addedTVShow;
+    private int season, episode;
     private double rate = 8;
     private Response sendRequest;
     private TVEpisodesRate response;
 
     public TVEpisodesRateController(){  }
+
+    public void setTVShowID(String movieID)
+    {
+        addedTVShow = movieID;
+    }
+
+    public void setShowSeasonID(int seasonID)
+    {
+        season = seasonID;
+    }
+
+    public void setShowSeasonEpisodeID(int episodeID)
+    {
+        episode = episodeID;
+    }
 
     public void setSessionID(String sessionID)
     {
@@ -33,7 +48,7 @@ public class TVEpisodesRateController extends ApiRateController {
         {
             return new URLBuilder()
                     .addDomain(PropertiesHelper.getValueByKey("url.base"))
-                    .addPathStep("tv/" + addedTVShow + "/season/" + 3 + "/episode/" + 1 + "/rating")
+                    .addPathStep("tv/" + addedTVShow + "/season/" + season + "/episode/" + episode + "/rating")
                     .addQuery("&guest_session_id=" + guestSessionID + "&session_id=" + sessionID)
                     .build();
         }

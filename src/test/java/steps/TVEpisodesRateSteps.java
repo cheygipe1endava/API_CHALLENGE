@@ -2,13 +2,14 @@ package steps;
 
 import controllers.AuthenticationController;
 import controllers.TVEpisodesRateController;
+import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.hamcrest.Matchers;
 import org.junit.Assert;
 
-public class TVEpisodesSteps {
+public class TVEpisodesRateSteps {
 
     private AuthenticationController authenticationController = new AuthenticationController();
     private TVEpisodesRateController tvEpisodesRateController = new TVEpisodesRateController();
@@ -21,9 +22,13 @@ public class TVEpisodesSteps {
         sessionID = authenticationController.Authenticate().getSession_id();
     }
 
-    @Given("^a TV episode must be rated in TMDB$")
-    public void aTVEpisodeMustBeRatedInTMDB()
+    @Given("^the TV episode \"([^\"]*)\" from season \"([^\"]*)\" of TV show \"([^\"]*)\" must be rated \"([^\"]*)\" in TMDB$")
+    public void theTVEpisodeFromSeasonOfTVShowMustBeRatedInTMDB(int episodeID, int seasonID, String tvShowID, double rating)
     {
+        tvEpisodesRateController.setTVShowID(tvShowID);
+        tvEpisodesRateController.setShowSeasonID(seasonID);
+        tvEpisodesRateController.setShowSeasonEpisodeID(episodeID);
+        tvEpisodesRateController.setRatingController(rating);
         tvEpisodesRateController.setGuestSessionID(guestSessionID);
         tvEpisodesRateController.setSessionID(sessionID);
     }
@@ -42,9 +47,12 @@ public class TVEpisodesSteps {
                 Matchers.anyOf(Matchers.equalTo("1"),Matchers.equalTo("12")));
     }
 
-    @Given("^a TV episode rating must be deleted from TMDB$")
-    public void aTVEpisodeRatingMustBeDeletedFromTMDB()
+    @Given("^the TV episode \"([^\"]*)\" from season \"([^\"]*)\" of TV show \"([^\"]*)\" rating must be deleted from TMDB$")
+    public void theTVEpisodeFromSeasonOfTVShowRatingMustBeDeletedFromTMDB(int episodeID, int seasonID, String tvShowID)
     {
+        tvEpisodesRateController.setTVShowID(tvShowID);
+        tvEpisodesRateController.setShowSeasonID(seasonID);
+        tvEpisodesRateController.setShowSeasonEpisodeID(episodeID);
         tvEpisodesRateController.setGuestSessionID(guestSessionID);
         tvEpisodesRateController.setSessionID(sessionID);
     }
