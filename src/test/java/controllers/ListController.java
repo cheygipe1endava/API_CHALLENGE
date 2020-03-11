@@ -16,6 +16,9 @@ public class ListController extends ApiListController {
     private final String ADD_ITEM = "/add_item";
     private final String ITEM_STATUS = "/item_status";
     private final String MOVIE_ID = "movie_id";
+    private final String REMOVE_ITEM = "/remove_item";
+    private final String CLEAR = "/clear";
+    private final String CONFIRM = "confirm";
 
     public ListController(String sessionID)
     {
@@ -113,38 +116,15 @@ public class ListController extends ApiListController {
         return JsonHelper.responseToListObj(requestSpecification.queryParam(MOVIE_ID, addedMovieID).get("/" + listID + ITEM_STATUS));
     }
 
-    public void sendItemsRemovalRequest()
-    {
-        sendRequest = requestSpecification.given().body("{\"media_id\": " + addedMovieID + "}").and().post(gettingListURL("removeItems"));
-    }
-
     public List getItemsRemovalResponse()
     {
-        response = JsonHelper.responseToListObj(sendRequest);
-        return response;
-    }
-
-    public void sendClearListRequest()
-    {
-        sendRequest = requestSpecification.post(gettingListURL("clearList"));
-    }
-
-    public List getClearListResponse()
-    {
-        response = JsonHelper.responseToListObj(sendRequest);
-        return response;
-    }
-
-    public Response sendDeleteList()
-    {
-        sendRequest = requestSpecification.delete("/" + listID);
-        return sendRequest;
+        return JsonHelper.responseToListObj(requestSpecification.given().body("{\"media_id\": " + addedMovieID + "}")
+                .and().post("/" + listID + REMOVE_ITEM));
     }
 
     public List getDeleteList()
     {
-        response = JsonHelper.responseToListObj(sendRequest);
-        return response;
+        return JsonHelper.responseToListObj(requestSpecification.delete("/" + listID));
     }
 
     public List createList()
@@ -159,7 +139,6 @@ public class ListController extends ApiListController {
 
     public List deleteList()
     {
-        sendDeleteList();
         return getDeleteList();
     }
 

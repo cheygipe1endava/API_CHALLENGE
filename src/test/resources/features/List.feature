@@ -33,8 +33,7 @@ Background: Valid session created
 
   Scenario: The user needs to remove movies in the list
     Given a new list must be created in TMDB
-    And a movie must be inserted in the list
-    And movies in the list must be removed
+    And the movie "330457" must be inserted in the list
     When the user sends a request to remove movies contained in list
     Then the response shows successful remove action of the movie
     And the list created is erased
@@ -42,8 +41,7 @@ Background: Valid session created
 
   Scenario: The user needs to clear records of the list
     Given a new list must be created in TMDB
-    And a movie must be inserted in the list
-    And all records in the list must be cleared
+    And the movie "330457" must be inserted in the list
     When the user sends a request to clear the list
     Then the response shows successful clear of the list
     And the list created is erased
@@ -51,7 +49,6 @@ Background: Valid session created
 
   Scenario: The user needs to delete the list
     Given a new list must be created in TMDB
-    And the created list must be erased from TMDb
     When the user sends a request to delete the list
     Then the response shows successful delete of the list
     And the session is erased

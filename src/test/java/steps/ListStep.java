@@ -105,9 +105,10 @@ public class ListStep{
                 "FELIPE_GIRALDO_PEREZ", listController.getListDetails().getCreated_by());
     }
 
-    @And("^a movie must be inserted in the list$")
-    public void aMovieMustBeInsertedInTheList()
+    @And("^the movie \"([^\"]*)\" must be inserted in the list$")
+    public void theMovieMustBeInsertedInTheList(String movieID)
     {
+        listController.setMovieID(movieID);
         Assert.assertEquals("User has added a valid movie to the list",
                 "12", listController.addMovie().getStatus_code());
     }
@@ -132,65 +133,42 @@ public class ListStep{
                 "true", listController.getItemsInListResponse().getItem_present());
     }
 
-    @And("^movies in the list must be removed$")
-    public void moviesInTheListMustBeRemoved()
-    {
-
-    }
-
     @When("^the user sends a request to remove movies contained in list$")
     public void theUserSendsARequestToRemoveMoviesContainedInList()
     {
 
-        listController.sendItemsRemovalRequest();
     }
 
     @Then("^the response shows successful remove action of the movie$")
     public void theResponseShowsSuccessfulRemoveActionOfTheMovie()
     {
-        listController.getItemsRemovalResponse();
         Assert.assertEquals("User has deleted a valid movie from the list",
                 "13", listController.getItemsRemovalResponse().getStatus_code());
-    }
-
-    @And("^all records in the list must be cleared$")
-    public void allRecordsInTheListMustBeCleared()
-    {
-
     }
 
     @When("^the user sends a request to clear the list$")
     public void theUserSendsARequestToClearTheList()
     {
-        listController.sendClearListRequest();
+
     }
 
     @Then("^the response shows successful clear of the list$")
     public void theResponseShowsSuccessfulClearOfTheList()
     {
-        listController.getClearListResponse();
         Assert.assertEquals("User has successfully cleared the list",
-                "12", listController.getItemsRemovalResponse().getStatus_code());
-    }
-
-    @And("^the created list must be erased from TMDb$")
-    public void theCreatedListMustBeErasedFromTMDb()
-    {
-
+                "13", listController.getItemsRemovalResponse().getStatus_code());
     }
 
     @When("^the user sends a request to delete the list$")
     public void theUserSendsARequestToDeleteTheList()
     {
-        listController.sendDeleteList();
+
     }
 
     @Then("^the response shows successful delete of the list$")
     public void theResponseShowsSuccessfulDeleteOfTheList()
     {
-        listController.getDeleteList();
         Assert.assertEquals("User has successfully deleted the list",
-                "11", listController.getItemsRemovalResponse().getStatus_code());
+                "11", listController.getDeleteList().getStatus_code());
     }
-
 }
