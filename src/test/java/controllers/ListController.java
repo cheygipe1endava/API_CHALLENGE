@@ -7,21 +7,22 @@ import helpers.PropertiesHelper;
 import builders.URLBuilder;
 import java.net.URL;
 
-public class ListController extends ApiAuthenticationController {
+public class ListController extends ApiListController {
 
     private String listBody, listID, sessionID;
     private List response;
     private Response movieResponse, sendRequest;
     private int addedMovieID = 330457;
+    private final String SESSION_ID = "session_id";
 
-    public ListController(){}
-
-    public void getSessionID(String sessionID)
+    public ListController(String sessionID)
     {
         this.sessionID = sessionID;
+        requestSpecification.basePath("list").queryParam(API_KEY, PropertiesHelper.getValueByKey("api.key"))
+                                             .queryParam(SESSION_ID, this.sessionID);
     }
 
-    public void getListID(String listIDReturn)
+    public void setListID(String listIDReturn)
     {
         listID = listIDReturn;
     }
@@ -75,33 +76,24 @@ public class ListController extends ApiAuthenticationController {
         return null;
     }
 
-    public void sendCreateList()
-    {
-        sendRequest = requestSpecification.given().body("{\"name\":\"Mock List Challenge Correction\"," +
-                                            "\"description\":\"\"," + "\"language\":\"en\"}")
-                                            .and().post(gettingListURL("listCreation"));
-    }
-
     public List getResponseBody()
     {
-        response = JsonHelper.responseToListObj(sendRequest);
+        response = JsonHelper.responseToListObj(requestSpecification.given().body("{\"name\":\"Mock List Challenge Correction\"," +
+                "\"description\":\"\"," + "\"language\":\"en\"}")
+                .and().post());
+        listID = response.getList_id();
         return response;
     }
 
-    public void createMovieBody()
+    public String returnListID()
     {
-        listBody = "{\"media_id\": " + addedMovieID + "}";
-    }
-
-    public void sendAddMovieRequest()
-    {
-        movieResponse = requestSpecification.given().body(listBody).and().post(gettingListURL("addMovie"));
+        return listID;
     }
 
     public List getAddMovieResponse()
     {
-        response = JsonHelper.responseToListObj(movieResponse);
-        return response;
+        return JsonHelper.responseToListObj(requestSpecification.given().body("{\"media_id\": " + addedMovieID + "}")
+                .and().post("/" + listID + "/add_item"));
     }
 
     public void sendListDetailsRequest()
@@ -133,7 +125,7 @@ public class ListController extends ApiAuthenticationController {
 
     public void sendItemsRemovalRequest()
     {
-        sendRequest = requestSpecification.given().body(listBody).and().post(gettingListURL("removeItems"));
+        sendRequest = requestSpecification.given().body("{\"media_id\": " + addedMovieID + "}").and().post(gettingListURL("removeItems"));
     }
 
     public List getItemsRemovalResponse()
@@ -155,7 +147,7 @@ public class ListController extends ApiAuthenticationController {
 
     public Response sendDeleteList()
     {
-        sendRequest = requestSpecification.delete(gettingListURL("deleteList"));
+        sendRequest = requestSpecification.delete("/" + listID);
         return sendRequest;
     }
 
@@ -167,15 +159,11 @@ public class ListController extends ApiAuthenticationController {
 
     public List createList()
     {
-        sendCreateList();
-        this.listID = getResponseBody().getList_id();
         return getResponseBody();
     }
 
     public List addMovie()
     {
-        createMovieBody();
-        sendAddMovieRequest();
         return getAddMovieResponse();
     }
 

@@ -53,9 +53,8 @@ public class AuthenticationController extends ApiAuthenticationController {
 
     public Session deleteSessionRequest()
     {
-        getRequestBody = JsonHelper.responseToRequestsObj(requestSpecification.given().body("{\"session_id\":" + "\"" +
+        return JsonHelper.responseToRequestsObj(requestSpecification.given().body("{\"session_id\":" + "\"" +
                 sessionID + "\"" + "}").and().delete(SESSION));
-        return getRequestBody;
     }
 
     public void getSessionID(String sessionID)

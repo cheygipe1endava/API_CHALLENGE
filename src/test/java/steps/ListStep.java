@@ -12,25 +12,26 @@ import org.junit.Assert;
 public class ListStep{
 
     private AuthenticationController authenticationController = new AuthenticationController();
-    private ListController listController = new ListController();
+    private ListController listController;
     private String sessionID, listID;
 
     @Given("^the user has a valid session created with its API Key$")
     public void theUserHasAValidSessionCreatedWithItsAPIKey()
     {
-        sessionID = authenticationController.Authenticate().getSession_id();
+        //sessionID = authenticationController.Authenticate().getSession_id();
+        listController = new ListController(authenticationController.Authenticate().getSession_id());
     }
 
     @Given("^a new list needs to be created in TMDB$")
     public void aNewListNeedsToBeCreatedInTMDB()
     {
-        listController.getSessionID(sessionID);
+
     }
 
     @When("^the user sends a request to create the list$")
     public void theUserSendsARequestToCreateTheList()
     {
-        listController.sendCreateList();
+
     }
 
     @Then("^the service responds with a success result$")
@@ -42,8 +43,7 @@ public class ListStep{
     @And("^the response contains the new list$")
     public void theResponseContainsTheNewList()
     {
-        listID = listController.getResponseBody().getList_id();
-        listController.getListID(listID);
+        listController.setListID(listController.returnListID());
     }
 
     @And("^the list created is erased$")
@@ -56,7 +56,6 @@ public class ListStep{
     @And("^the session is erased$")
     public void theSessionIsErased()
     {
-        authenticationController.getSessionID(sessionID);
         Assert.assertEquals("Session deleted successfully",
                 "true",  authenticationController.deleteSession().getSuccess());
     }
@@ -64,7 +63,6 @@ public class ListStep{
     @Given("^a new list must be created in TMDB$")
     public void aNewListMustBeCreatedInTMDB()
     {
-        listController.getSessionID(sessionID);
         Assert.assertEquals("User has created a valid list","true", listController.createList().getSuccess());
     }
 
@@ -77,14 +75,12 @@ public class ListStep{
     @When("^the user sends a request to add a movie$")
     public void theUserSendsARequestToAddAMovie()
     {
-        listController.createMovieBody();
-        listController.sendAddMovieRequest();
+
     }
 
     @Then("^the response contains a status code for the added movie$")
     public void theResponseContainsAStatusCodeForTheAddedMovie()
     {
-        listController.getAddMovieResponse();
         Assert.assertEquals("User has added a valid movie to the list",
                 "12", listController.getAddMovieResponse().getStatus_code());
     }
@@ -138,13 +134,13 @@ public class ListStep{
     @And("^movies in the list must be removed$")
     public void moviesInTheListMustBeRemoved()
     {
-        listController.getSessionID(sessionID);
+
     }
 
     @When("^the user sends a request to remove movies contained in list$")
     public void theUserSendsARequestToRemoveMoviesContainedInList()
     {
-        listController.createMovieBody();
+
         listController.sendItemsRemovalRequest();
     }
 
@@ -159,7 +155,7 @@ public class ListStep{
     @And("^all records in the list must be cleared$")
     public void allRecordsInTheListMustBeCleared()
     {
-        listController.getSessionID(sessionID);
+
     }
 
     @When("^the user sends a request to clear the list$")
