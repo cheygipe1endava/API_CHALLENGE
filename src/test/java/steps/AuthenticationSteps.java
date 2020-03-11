@@ -39,21 +39,21 @@ public class AuthenticationSteps {
     @When("^the user requests session with login$")
     public void theUserRequestsSessionWithLogin()
     {
-        authenticationController.sessionWithLogin();
+        authenticationController.getSessionWithLogin();
     }
 
     @Then("^the user creates a valid session$")
     public void theUserCreatesAValidSession()
     {
         Assert.assertEquals("User has a valid session key",
-                "true",  authenticationController.createSession().getSuccess());
+                "true",  authenticationController.getCreateSession().getSuccess());
     }
 
     @And("^the session is deleted$")
     public void theSessionIsDeleted()
     {
         Assert.assertEquals("Session deleted successfully",
-                "true",  authenticationController.deleteSessionRequest().getSuccess());
+                "true",  authenticationController.getDeleteSession().getSuccess());
     }
 
 

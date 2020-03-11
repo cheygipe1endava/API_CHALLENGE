@@ -25,36 +25,33 @@ public class AuthenticationController extends ApiAuthenticationController {
 
     public Session getGuestSession()
     {
-        getRequestBody = JsonHelper.responseToRequestsObj(requestSpecification.get(GUEST_SESSION + NEW));
-        return getRequestBody;
+        return JsonHelper.responseToRequestsObj(requestSpecification.get(GUEST_SESSION + NEW));
     }
 
     public void getRequestToken()
     {
-        getRequestBody = JsonHelper.responseToRequestsObj(requestSpecification.get(TOKEN + NEW));
-        requestToken = getRequestBody.getRequest_token();
+        requestToken = JsonHelper.responseToRequestsObj(requestSpecification.get(TOKEN + NEW)).getRequest_token();
+        setRequestToken(requestToken);
     }
 
-    public void sessionWithLogin()
+    public void getSessionWithLogin()
     {
-        getRequestBody = JsonHelper.responseToRequestsObj(requestSpecification.given().body("{\"username\":\"FELIPE_GIRALDO_PEREZ\","
-                + "\"password\":\"1234\"," + "\"request_token\":" + "\"" +  requestToken + "\"" + "}")
+        JsonHelper.responseToRequestsObj(requestSpecification.given().body(gettingBodies("sessionWithLogin"))
                 .and().post(TOKEN + VALIDATE_WITH_LOGIN));
-        this.requestToken = getRequestBody.getRequest_token();
     }
 
-    public Session createSession()
+    public Session getCreateSession()
     {
-        getRequestBody = JsonHelper.responseToRequestsObj(requestSpecification.given().body("{\"request_token\":" + "\"" +
-                requestToken + "\"" + "}").and().post(SESSION + "/" + NEW));
-        sessionID = getRequestBody.getSession_id();
+        getRequestBody = JsonHelper.responseToRequestsObj(requestSpecification.given().body(gettingBodies("createSession"))
+                            .and().post(SESSION + "/" + NEW));
+        setSessionID(getRequestBody.getSession_id());
         return getRequestBody;
     }
 
-    public Session deleteSessionRequest()
+    public Session getDeleteSession()
     {
-        return JsonHelper.responseToRequestsObj(requestSpecification.given().body("{\"session_id\":" + "\"" +
-                sessionID + "\"" + "}").and().delete(SESSION));
+        return JsonHelper.responseToRequestsObj(requestSpecification.given().body(gettingBodies("deleteSession"))
+                                                .and().delete(SESSION));
     }
 
     public void getSessionID(String sessionID)
@@ -70,14 +67,14 @@ public class AuthenticationController extends ApiAuthenticationController {
 
     public Session Authenticate() {
         getRequestToken();
-        sessionWithLogin();
-        createSession();
+        getSessionWithLogin();
+        getCreateSession();
         return getRequestBody;
     }
 
     public Session deleteSession()
     {
-        deleteSessionRequest();
+        getDeleteSession();
         return getRequestBody;
     }
 }

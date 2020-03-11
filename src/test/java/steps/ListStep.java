@@ -35,7 +35,7 @@ public class ListStep{
     @Then("^the service responds with a success result$")
     public void theServiceRespondsWithASuccessResult()
     {
-        Assert.assertEquals("User has created a valid list","true", listController.getResponseBody().getSuccess());
+        Assert.assertEquals("User has created a valid list","true", listController.getCreateList().getSuccess());
     }
 
     @And("^the response contains the new list$")
@@ -48,7 +48,7 @@ public class ListStep{
     public void theListCreatedIsErased()
     {
         Assert.assertEquals("User has successfully deleted the list",
-                "11", listController.deleteList().getStatus_code());
+                "11", listController.getDeleteList().getStatus_code());
     }
 
     @And("^the session is erased$")
@@ -61,7 +61,7 @@ public class ListStep{
     @Given("^a new list must be created in TMDB$")
     public void aNewListMustBeCreatedInTMDB()
     {
-        Assert.assertEquals("User has created a valid list","true", listController.createList().getSuccess());
+        Assert.assertEquals("User has created a valid list","true", listController.getCreateList().getSuccess());
     }
 
     @And("^the user wants to add a new movie \"([^\"]*)\" to the list in TMDB$")
@@ -107,7 +107,7 @@ public class ListStep{
     {
         listController.setMovieID(movieID);
         Assert.assertEquals("User has added a valid movie to the list",
-                "12", listController.addMovie().getStatus_code());
+                "12", listController.getAddMovie().getStatus_code());
     }
 
     @Given("^the movie \"([^\"]*)\" contained in the list \"([^\"]*)\" must be shown$")
@@ -127,7 +127,7 @@ public class ListStep{
     public void theResponseContainsInformationOfItemsInTheList()
     {
         Assert.assertEquals("Item in list exists",
-                "true", listController.getItemsInListResponse().getItem_present());
+                "true", listController.getItemsInList().getItem_present());
     }
 
     @When("^the user sends a request to remove movies contained in list$")
